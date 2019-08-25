@@ -166,6 +166,16 @@ return [
         /*
          * Package Service Providers...
          */
+        ConsoleTVs\Charts\ChartsServiceProvider::class,
+        Proengsoft\JsValidation\JsValidationServiceProvider::class,
+        Lookitsatravis\Listify\ListifyServiceProvider::class,
+        Yajra\Datatables\DatatablesServiceProvider::class,
+        Spatie\Menu\Laravel\MenuServiceProvider::class,
+        RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
+        Laravolt\Avatar\ServiceProvider::class,
+        Intervention\Image\ImageServiceProvider::class,
+        Snowfire\Beautymail\BeautymailServiceProvider::class,
+        Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Laravel\Tinker\TinkerServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
         Orangehill\Iseed\IseedServiceProvider::class,
@@ -226,6 +236,13 @@ return [
         'Storage' => Illuminate\Support\Facades\Storage::class,
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
+        'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'Listify' => Lookitsatravis\Listify\Listify::class,
+        'DataTables' => Yajra\Datatables\Facades\Datatables::class,
+        'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
+        'Avatar'    => Laravolt\Avatar\Facade::class,
+        'Image' => Intervention\Image\Facades\Image::class,
+        'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
