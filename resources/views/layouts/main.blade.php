@@ -11,7 +11,8 @@
     <title>{{ config('app.name', 'Basic') }}</title>
 
     <!-- Bootstrap CSS -->
-    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
 
 </head>
 
@@ -24,9 +25,9 @@
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="{{ asset('js/jquery-3.3.1.slim.min.js') }}"></script>
-    <script src="{{ asset('js/popper.1.14.3.min.js') }}"></script>
-    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('js/adminlte.min.js') }}"></script>
 </body>
 
 </html>
