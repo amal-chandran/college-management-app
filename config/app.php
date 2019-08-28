@@ -241,6 +241,7 @@ return [
         'DataTables' => Yajra\Datatables\Facades\Datatables::class,
         'Menu' => Spatie\Menu\Laravel\MenuFacade::class,
         'Avatar'    => Laravolt\Avatar\Facade::class,
+        'Link'    => Spatie\Menu\Laravel\Link::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'View' => Illuminate\Support\Facades\View::class,
