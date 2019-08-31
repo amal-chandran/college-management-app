@@ -155,12 +155,15 @@
           <div class="sidebar">
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-              <div class="image">
-                <img src="{{Avatar::create(Auth::getUser()->name)->toBase64()}}" class="img-circle elevation-2" alt="User Image">
+             @auth
+
+             <div class="image">
+               <img src="{{Avatar::create(Auth::getUser()->name)->toBase64()}}" class="img-circle elevation-2" alt="User Image">
               </div>
               <div class="info">
                 <a href="#" class="d-block">{{Auth::getUser()->name}}</a>
               </div>
+              @endauth
             </div>
 
             <!-- Sidebar Menu -->
