@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
+use App\User;
 use Illuminate\Http\Request;
 use Exception;
 
@@ -43,8 +43,8 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
+        $this->affirm($request);
         try {
-            $this->affirm($request);
             $data = $this->getData($request);
 
             User::create($data);
@@ -97,8 +97,8 @@ class UsersController extends Controller
      */
     public function update($id, Request $request)
     {
+        $this->affirm($request);
         try {
-            $this->affirm($request);
             $data = $this->getData($request);
 
             $user = User::findOrFail($id);
@@ -107,7 +107,6 @@ class UsersController extends Controller
             return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully updated.');
         } catch (Exception $exception) {
-
             return back()->withInput()
                 ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
         }
@@ -146,7 +145,7 @@ class UsersController extends Controller
     {
         $rules = [
             'name' => 'required|string|min:1|max:191',
-            'email' => 'required|string|email|unique:users|min:1|max:191',
+            'email' => 'required|string|email|min:1|max:191',
             'password' => 'required|min:8|max:100',
         ];
 

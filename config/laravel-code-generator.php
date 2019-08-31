@@ -49,6 +49,7 @@ return [
      */
     'template' => 'default-collective',
     'layout' => 'default-collective',
+    'models_path'=>'',
     'files_upload_path' => 'uploads',
     'templates_path' => 'resources/laravel-code-generator/templates',
 ];
