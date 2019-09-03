@@ -56,3 +56,22 @@ Route::group([
     Route::delete('/role/{role}','RolesController@destroy')
          ->name('roles.role.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'permissions',
+], function () {
+    Route::get('/', 'PermissionsController@index')
+         ->name('permissions.permission.index');
+    Route::get('/create','PermissionsController@create')
+         ->name('permissions.permission.create');
+    Route::get('/show/{permission}','PermissionsController@show')
+         ->name('permissions.permission.show')->where('id', '[0-9]+');
+    Route::get('/{permission}/edit','PermissionsController@edit')
+         ->name('permissions.permission.edit')->where('id', '[0-9]+');
+    Route::post('/', 'PermissionsController@store')
+         ->name('permissions.permission.store');
+    Route::put('permission/{permission}', 'PermissionsController@update')
+         ->name('permissions.permission.update')->where('id', '[0-9]+');
+    Route::delete('/permission/{permission}','PermissionsController@destroy')
+         ->name('permissions.permission.destroy')->where('id', '[0-9]+');
+});

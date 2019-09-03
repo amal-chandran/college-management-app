@@ -3,5 +3,10 @@
         "model-name": "Role",
         "resource-file": "roles.json",
         "table-name": "roles"
+    },
+    {
+        "model-name": "Permission",
+        "resource-file": "permissions.json",
+        "table-name": "permissions"
     }
 ]
