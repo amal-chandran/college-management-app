@@ -42,7 +42,9 @@
                 @foreach($users as $user)
                     <tr>
                             <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
+                            <td>
+                                <img src="{{Avatar::create($user->name)->toBase64()}}" class="img-circle" style="width: 30px;" alt="{{$user->name}}">
+                                {{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->created_at }}</td>
 

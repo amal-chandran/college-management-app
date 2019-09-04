@@ -174,7 +174,9 @@
                 ->addItemParentClass("nav-item")
                 ->addClass("nav nav-pills nav-sidebar flex-column")
                 ->action("DashboardController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Dashboard')
-                ->link("#",'<i class="nav-icon fas fa-users"></i> Users')
+                ->action("UsersController@index",'<i class="nav-icon fas fa-users"></i> Users')
+                ->action("RolesController@index",'<i class="nav-icon fas fa-shield-alt"></i> Roles')
+                ->action("PermissionsController@index",'<i class="nav-icon fas fa-shield-alt"></i> Permissions')
                 }}
             </nav>
             <!-- /.sidebar-menu -->
