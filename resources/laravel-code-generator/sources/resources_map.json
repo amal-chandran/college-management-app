@@ -8,5 +8,9 @@
         "model-name": "Permission",
         "resource-file": "permissions.json",
         "table-name": "permissions"
+    },
+    {
+        "model-name": "StudentClass",
+        "resource-file": "student_classes.json"
     }
 ]

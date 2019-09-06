@@ -75,3 +75,22 @@ Route::group([
     Route::delete('/permission/{permission}','PermissionsController@destroy')
          ->name('permissions.permission.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'student_classes',
+], function () {
+    Route::get('/', 'StudentClassesController@index')
+         ->name('student_classes.student_class.index');
+    Route::get('/create','StudentClassesController@create')
+         ->name('student_classes.student_class.create');
+    Route::get('/show/{studentClass}','StudentClassesController@show')
+         ->name('student_classes.student_class.show')->where('id', '[0-9]+');
+    Route::get('/{studentClass}/edit','StudentClassesController@edit')
+         ->name('student_classes.student_class.edit')->where('id', '[0-9]+');
+    Route::post('/', 'StudentClassesController@store')
+         ->name('student_classes.student_class.store');
+    Route::put('student_class/{studentClass}', 'StudentClassesController@update')
+         ->name('student_classes.student_class.update')->where('id', '[0-9]+');
+    Route::delete('/student_class/{studentClass}','StudentClassesController@destroy')
+         ->name('student_classes.student_class.destroy')->where('id', '[0-9]+');
+});
