@@ -12,5 +12,9 @@
     {
         "model-name": "StudentClass",
         "resource-file": "student_classes.json"
+    },
+    {
+        "model-name": "Subject",
+        "resource-file": "subjects.json"
     }
 ]
