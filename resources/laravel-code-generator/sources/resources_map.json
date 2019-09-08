@@ -16,5 +16,9 @@
     {
         "model-name": "Subject",
         "resource-file": "subjects.json"
+    },
+    {
+        "model-name": "Attendance",
+        "resource-file": "attendances.json"
     }
 ]

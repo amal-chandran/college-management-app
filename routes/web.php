@@ -113,3 +113,22 @@ Route::group([
     Route::delete('/subject/{subject}','SubjectsController@destroy')
          ->name('subjects.subject.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'attendances',
+], function () {
+    Route::get('/', 'AttendancesController@index')
+         ->name('attendances.attendance.index');
+    Route::get('/create','AttendancesController@create')
+         ->name('attendances.attendance.create');
+    Route::get('/show/{attendance}','AttendancesController@show')
+         ->name('attendances.attendance.show')->where('id', '[0-9]+');
+    Route::get('/{attendance}/edit','AttendancesController@edit')
+         ->name('attendances.attendance.edit')->where('id', '[0-9]+');
+    Route::post('/', 'AttendancesController@store')
+         ->name('attendances.attendance.store');
+    Route::put('attendance/{attendance}', 'AttendancesController@update')
+         ->name('attendances.attendance.update')->where('id', '[0-9]+');
+    Route::delete('/attendance/{attendance}','AttendancesController@destroy')
+         ->name('attendances.attendance.destroy')->where('id', '[0-9]+');
+});
