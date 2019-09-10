@@ -30,6 +30,7 @@ class Slot extends Model
     protected $fillable = [
                   'student_class_id',
                   'subject_id',
+                  'name',
                   'day'
               ];
 

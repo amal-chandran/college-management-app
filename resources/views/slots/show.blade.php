@@ -5,7 +5,7 @@
 
 <div class="card">
     <div class="card-header">
-        <h4 class="mb-0 float-left">{{ isset($title) ? $title : 'Slot' }}</h4>
+        <h4 class="mb-0 float-left">{{ isset($slot->name) ? $slot->name : 'Slot' }}</h4>
         <div class="float-right">
         {!! Form::open([
             'method' =>'DELETE',
@@ -39,9 +39,11 @@
     <div class="card-body">
             <dl class="dl-horizontal">
                                 <dt>Student Class</dt>
-            <dd>{{ isset($slot->studentClass->branch) ? $slot->studentClass->branch : '' }}</dd>
+            <dd>{{ isset($slot->studentClass->created_at) ? $slot->studentClass->created_at : '' }}</dd>
             <dt>Subject</dt>
             <dd>{{ isset($slot->subject->name) ? $slot->subject->name : '' }}</dd>
+            <dt>Name</dt>
+            <dd>{{ $slot->name }}</dd>
             <dt>Day</dt>
             <dd>{{ $slot->day }}</dd>
 

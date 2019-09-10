@@ -32,6 +32,7 @@
                     <tr>
                             <th>Student Class</th>
                             <th>Subject</th>
+                            <th>Name</th>
                             <th>Day</th>
 
                         <th></th>
@@ -40,8 +41,9 @@
                 <tbody>
                 @foreach($slots as $slot)
                     <tr>
-                            <td>{{ isset($slot->studentClass->branch) ? $slot->studentClass->branch : '' }}</td>
+                            <td>{{ isset($slot->studentClass->created_at) ? $slot->studentClass->created_at : '' }}</td>
                             <td>{{ isset($slot->subject->name) ? $slot->subject->name : '' }}</td>
+                            <td>{{ $slot->name }}</td>
                             <td>{{ $slot->day }}</td>
 
                         <td>

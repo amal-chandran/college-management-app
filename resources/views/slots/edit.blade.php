@@ -4,7 +4,7 @@
 
 <div class="card">
         <div class="card-header">
-            <h4 class="float-left">{{ !empty($title) ? $title : 'Slot' }}</h4>
+            <h4 class="float-left">{{ !empty($slot->name) ? $slot->name : 'Slot' }}</h4>
 
             <div class="btn-group btn-group-sm float-right" role="group">
 
