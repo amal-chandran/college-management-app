@@ -151,3 +151,22 @@ Route::group([
     Route::delete('/attendee/{attendee}','AttendeesController@destroy')
          ->name('attendees.attendee.destroy')->where('id', '[0-9]+');
 });
+
+Route::group([
+    'prefix' => 'slots',
+], function () {
+    Route::get('/', 'SlotsController@index')
+         ->name('slots.slot.index');
+    Route::get('/create','SlotsController@create')
+         ->name('slots.slot.create');
+    Route::get('/show/{slot}','SlotsController@show')
+         ->name('slots.slot.show')->where('id', '[0-9]+');
+    Route::get('/{slot}/edit','SlotsController@edit')
+         ->name('slots.slot.edit')->where('id', '[0-9]+');
+    Route::post('/', 'SlotsController@store')
+         ->name('slots.slot.store');
+    Route::put('slot/{slot}', 'SlotsController@update')
+         ->name('slots.slot.update')->where('id', '[0-9]+');
+    Route::delete('/slot/{slot}','SlotsController@destroy')
+         ->name('slots.slot.destroy')->where('id', '[0-9]+');
+});
