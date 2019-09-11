@@ -23,3 +23,19 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('slot_id') ? 'has-error' : '' }}">
+    {!! Form::label('slot_id','Slot',['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-10">
+        {!! Form::select('slot_id',$slots,null, ['class' => 'form-control', 'placeholder' => 'Select slot', ]) !!}
+        {!! $errors->first('slot_id', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+
+<div class="form-group {{ $errors->has('marked_at') ? 'has-error' : '' }}">
+    {!! Form::label('marked_at','Marked At',['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-10">
+        {!! Form::text('marked_at',null, ['class' => 'form-control  datetimepicker ', 'placeholder' => 'Enter marked at here...', ]) !!}
+        {!! $errors->first('marked_at', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>
+

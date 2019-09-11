@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Attendance;
 use App\Http\Controllers\Controller;
+use App\Slot;
 use App\StudentClass;
 use App\Subject;
 use App\User;
@@ -20,7 +21,7 @@ class AttendancesController extends Controller
      */
     public function index()
     {
-        $attendances = Attendance::with('teacher','studentclass','subject')->paginate(25);
+        $attendances = Attendance::with('teacher','studentclass','subject','slot')->paginate(25);
 
         return view('attendances.index', compact('attendances'));
     }
@@ -35,8 +36,9 @@ class AttendancesController extends Controller
         $teachers = User::pluck('name','id')->all();
 $studentClasses = StudentClass::pluck('batch','id')->all();
 $subjects = Subject::pluck('name','id')->all();
+$slots = Slot::pluck('name','id')->all();
 
-        return view('attendances.create', compact('teachers','studentClasses','subjects'));
+        return view('attendances.create', compact('teachers','studentClasses','subjects','slots'));
     }
 
     /**
@@ -73,7 +75,7 @@ $subjects = Subject::pluck('name','id')->all();
      */
     public function show($id)
     {
-        $attendance = Attendance::with('teacher','studentclass','subject')->findOrFail($id);
+        $attendance = Attendance::with('teacher','studentclass','subject','slot')->findOrFail($id);
 
         return view('attendances.show', compact('attendance'));
     }
@@ -91,8 +93,9 @@ $subjects = Subject::pluck('name','id')->all();
         $teachers = User::pluck('name','id')->all();
 $studentClasses = StudentClass::pluck('batch','id')->all();
 $subjects = Subject::pluck('name','id')->all();
+$slots = Slot::pluck('name','id')->all();
 
-        return view('attendances.edit', compact('attendance','teachers','studentClasses','subjects'));
+        return view('attendances.edit', compact('attendance','teachers','studentClasses','subjects','slots'));
     }
 
     /**
@@ -157,6 +160,8 @@ $subjects = Subject::pluck('name','id')->all();
             'teacher_id' => 'nullable',
             'student_class_id' => 'nullable',
             'subject_id' => 'nullable',
+            'slot_id' => 'nullable',
+            'marked_at' => 'date_format:Y-m-d h:i:s A|nullable',
         ];
 
 
@@ -172,7 +177,7 @@ $subjects = Subject::pluck('name','id')->all();
      */
     protected function getData(Request $request)
     {
-        $data = $request->only(['teacher_id', 'student_class_id', 'subject_id']);
+        $data = $request->only(['teacher_id', 'student_class_id', 'subject_id', 'slot_id', 'marked_at']);
 
         return $data;
     }

@@ -44,6 +44,10 @@
             <dd>{{ isset($attendance->studentClass->batch) ? $attendance->studentClass->batch : '' }}</dd>
             <dt>Subject</dt>
             <dd>{{ isset($attendance->subject->name) ? $attendance->subject->name : '' }}</dd>
+            <dt>Slot</dt>
+            <dd>{{ isset($attendance->slot->name) ? $attendance->slot->name : '' }}</dd>
+            <dt>Marked At</dt>
+            <dd>{{ $attendance->marked_at }}</dd>
 
 </dl>
     </div>

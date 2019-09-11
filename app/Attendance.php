@@ -30,7 +30,9 @@ class Attendance extends Model
     protected $fillable = [
                   'teacher_id',
                   'student_class_id',
-                  'subject_id'
+                  'subject_id',
+                  'slot_id',
+                  'marked_at'
               ];
 
     /**
@@ -77,6 +79,36 @@ class Attendance extends Model
         return $this->belongsTo('App\Subject','subject_id');
     }
 
+    /**
+     * Get the slot for this model.
+     *
+     * @return App\Slot
+     */
+    public function slot()
+    {
+        return $this->belongsTo('App\Slot','slot_id');
+    }
 
+    /**
+     * Set the marked_at.
+     *
+     * @param  string  $value
+     * @return void
+     */
+    public function setMarkedAtAttribute($value)
+    {
+        $this->attributes['marked_at'] = !empty($value) ? \DateTime::createFromFormat('Y-m-d h:i:s A', $value) : null;
+    }
+
+    /**
+     * Get marked_at in array format
+     *
+     * @param  string  $value
+     * @return array
+     */
+    public function getMarkedAtAttribute($value)
+    {
+        return \DateTime::createFromFormat('Y-m-d H:i:s', $value)->format('Y-m-d h:i:s A');
+    }
 
 }

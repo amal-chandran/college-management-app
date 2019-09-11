@@ -33,6 +33,8 @@
                             <th>Teacher</th>
                             <th>Student Class</th>
                             <th>Subject</th>
+                            <th>Slot</th>
+                            <th>Marked At</th>
 
                         <th></th>
                     </tr>
@@ -43,6 +45,8 @@
                             <td>{{ isset($attendance->teacher->name) ? $attendance->teacher->name : '' }}</td>
                             <td>{{ isset($attendance->studentClass->batch) ? $attendance->studentClass->batch : '' }}</td>
                             <td>{{ isset($attendance->subject->name) ? $attendance->subject->name : '' }}</td>
+                            <td>{{ isset($attendance->slot->name) ? $attendance->slot->name : '' }}</td>
+                            <td>{{ $attendance->marked_at }}</td>
 
                         <td>
 

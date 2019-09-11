@@ -18,15 +18,15 @@
         "resource-file": "subjects.json"
     },
     {
-        "model-name": "Attendance",
-        "resource-file": "attendances.json"
-    },
-    {
         "model-name": "Attendee",
         "resource-file": "attendees.json"
     },
     {
         "model-name": "Slot",
         "resource-file": "slots.json"
+    },
+    {
+        "model-name": "Attendance",
+        "resource-file": "attendances.json"
     }
 ]
