@@ -41,7 +41,7 @@
                 <tbody>
                 @foreach($slots as $slot)
                     <tr>
-                            <td>{{ isset($slot->studentClass->created_at) ? $slot->studentClass->created_at : '' }}</td>
+                            <td>{{ isset($slot->studentClass->batch) ? $slot->studentClass->batch : '' }}</td>
                             <td>{{ isset($slot->subject->name) ? $slot->subject->name : '' }}</td>
                             <td>{{ $slot->name }}</td>
                             <td>{{ $slot->day }}</td>

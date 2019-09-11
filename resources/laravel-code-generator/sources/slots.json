@@ -73,7 +73,7 @@
                     "App\\StudentClass",
                     "student_class_id"
                 ],
-                "field": "branch"
+                "field": "batch"
             },
             "foreign-constraint": null,
             "on-store": null,

@@ -31,7 +31,7 @@ class SlotsController extends Controller
      */
     public function create()
     {
-        $studentClasses = StudentClass::pluck('created_at','id')->all();
+        $studentClasses = StudentClass::pluck('batch','id')->all();
 $subjects = Subject::pluck('name','id')->all();
 
         return view('slots.create', compact('studentClasses','subjects'));
@@ -86,7 +86,7 @@ $subjects = Subject::pluck('name','id')->all();
     public function edit($id)
     {
         $slot = Slot::findOrFail($id);
-        $studentClasses = StudentClass::pluck('created_at','id')->all();
+        $studentClasses = StudentClass::pluck('batch','id')->all();
 $subjects = Subject::pluck('name','id')->all();
 
         return view('slots.edit', compact('slot','studentClasses','subjects'));
