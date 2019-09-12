@@ -28,5 +28,9 @@
     {
         "model-name": "Attendance",
         "resource-file": "attendances.json"
+    },
+    {
+        "model-name": "StudentClassUser",
+        "resource-file": "student_class_users.json"
     }
 ]

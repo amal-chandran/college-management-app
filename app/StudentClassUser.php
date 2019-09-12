@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class StudentClass extends Model
+class StudentClassUser extends Model
 {
 
 
@@ -13,7 +13,7 @@ class StudentClass extends Model
      *
      * @var string
      */
-    protected $table = 'student_classes';
+    protected $table = 'student_class_user';
 
     /**
     * The database primary key value.
@@ -28,9 +28,8 @@ class StudentClass extends Model
      * @var array
      */
     protected $fillable = [
-                  'batch',
-                  'branch',
-                  'class_teacher_id'
+                  'student_class_id',
+                  'user_id'
               ];
 
     /**
@@ -48,18 +47,25 @@ class StudentClass extends Model
     protected $casts = [];
 
     /**
-     * Get the classTeacher for this model.
+     * Get the studentClass for this model.
+     *
+     * @return App\StudentClass
+     */
+    public function studentClass()
+    {
+        return $this->belongsTo('App\StudentClass','student_class_id');
+    }
+
+    /**
+     * Get the user for this model.
      *
      * @return App\User
      */
-    public function classTeacher()
+    public function user()
     {
-        return $this->belongsTo('App\User','class_teacher_id');
+        return $this->belongsTo('App\User','user_id');
     }
 
-public function students()
-{
-    return $this->belongsToMany("App\User");
-}
+
 
 }
