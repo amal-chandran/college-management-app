@@ -24,6 +24,36 @@ class StudentClassUsersController extends Controller
         return view('student_class_users.index', compact('studentClassUsers'));
     }
 
+    public function manage($classID)
+    {
+       $allotedStudents= StudentClassUser::pluck('student_class_user.user_id')->all();
+        // return $allotedStudents;
+       $nonAllotedStudents=User::whereNotIn('users.id',$allotedStudents)->join("user_has_roles",'users.id','=','user_has_roles.user_id')
+       ->join("roles",function ($join){ $join->on('roles.id','=','user_has_roles.role_id')->where("roles.name","=","student"); })
+       ->select("users.*")
+       ->paginate(25);
+    //    return $nonAllotedStudents;
+    //    ->get();
+
+    //    $nonAllotedStudents=User::join("student_class_user",'users.id',"!=","student_class_user.user_id")
+    //    ->join("user_has_roles",'users.id','=','user_has_roles.user_id')
+    //    ->join("roles",function ($join){ $join->on('roles.id','=','user_has_roles.role_id')->where("roles.name","=","student"); })
+    //    ->select("users.*");
+
+    //    if ($nonAllotedStudents->isEmpty()) {
+    //     $nonAllotedStudents=User::join("user_has_roles",'users.id','=','user_has_roles.user_id')
+    //     ->join("roles",function ($join){ $join->on('roles.id','=','user_has_roles.role_id')->where("roles.name","=","student"); })
+    //     ->select("users.*");
+    //    }
+
+       $allotedStudents= StudentClassUser::with('user')->where('student_class_user.student_class_id','=',$classID)->paginate(25);
+
+
+// $nonAllotedStudents=$nonAllotedStudents->paginate(25);
+
+        return view("student_class_users.manage",compact('allotedStudents','nonAllotedStudents','classID'));
+    }
+
     /**
      * Show the form for creating a new student class user.
      *
@@ -33,7 +63,7 @@ class StudentClassUsersController extends Controller
     {
 
         $studentClasses = StudentClass::pluck('batch','id' )->all();
-$users = User::pluck('name','id')->all();
+        $users = User::pluck('name','id')->all();
 
         return view('student_class_users.create', compact('studentClasses','users'));
     }
@@ -54,7 +84,8 @@ $users = User::pluck('name','id')->all();
 
             StudentClassUser::create($data);
 
-            return redirect()->route('student_class_users.student_class_user.index')
+            return back()
+            // ->route('student_class_users.student_class_user.index')
                 ->with('success_message', 'Student Class User was successfully added.');
         } catch (Exception $exception) {
 
@@ -133,7 +164,8 @@ $users = User::pluck('name','id')->all();
             $studentClassUser = StudentClassUser::findOrFail($id);
             $studentClassUser->delete();
 
-            return redirect()->route('student_class_users.student_class_user.index')
+            return back()
+            // ->route('student_class_users.student_class_user.index')
                 ->with('success_message', 'Student Class User was successfully deleted.');
         } catch (Exception $exception) {
 

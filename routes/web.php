@@ -174,18 +174,21 @@ Route::group([
 Route::group([
     'prefix' => 'student_class_users',
 ], function () {
-    Route::get('/', 'StudentClassUsersController@index')
-         ->name('student_class_users.student_class_user.index');
-    Route::get('/create','StudentClassUsersController@create')
-         ->name('student_class_users.student_class_user.create');
-    Route::get('/show/{studentClassUser}','StudentClassUsersController@show')
-         ->name('student_class_users.student_class_user.show')->where('id', '[0-9]+');
-    Route::get('/{studentClassUser}/edit','StudentClassUsersController@edit')
-         ->name('student_class_users.student_class_user.edit')->where('id', '[0-9]+');
-    Route::post('/', 'StudentClassUsersController@store')
-         ->name('student_class_users.student_class_user.store');
-    Route::put('student_class_user/{studentClassUser}', 'StudentClassUsersController@update')
-         ->name('student_class_users.student_class_user.update')->where('id', '[0-9]+');
-    Route::delete('/student_class_user/{studentClassUser}','StudentClassUsersController@destroy')
-         ->name('student_class_users.student_class_user.destroy')->where('id', '[0-9]+');
+     Route::get('/', 'StudentClassUsersController@index')
+          ->name('student_class_users.student_class_user.index');
+     Route::get('/manage/{classId}', 'StudentClassUsersController@manage')
+          ->name('student_class_users.student_class_user.manage');
+
+     Route::get('/create','StudentClassUsersController@create')
+          ->name('student_class_users.student_class_user.create');
+     Route::get('/show/{studentClassUser}','StudentClassUsersController@show')
+          ->name('student_class_users.student_class_user.show')->where('id', '[0-9]+');
+     Route::get('/{studentClassUser}/edit','StudentClassUsersController@edit')
+          ->name('student_class_users.student_class_user.edit')->where('id', '[0-9]+');
+     Route::post('/', 'StudentClassUsersController@store')
+          ->name('student_class_users.student_class_user.store');
+     Route::put('student_class_user/{studentClassUser}', 'StudentClassUsersController@update')
+          ->name('student_class_users.student_class_user.update')->where('id', '[0-9]+');
+     Route::delete('/student_class_user/{studentClassUser}','StudentClassUsersController@destroy')
+          ->name('student_class_users.student_class_user.destroy')->where('id', '[0-9]+');
 });
