@@ -34,7 +34,7 @@ class AttendancesController extends Controller
     public function create()
     {
         $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id')->all();
+$studentClasses = StudentClass::pluck('batch','id' )->all();
 $subjects = Subject::pluck('name','id')->all();
 $slots = Slot::pluck('name','id')->all();
 
@@ -91,7 +91,7 @@ $slots = Slot::pluck('name','id')->all();
     {
         $attendance = Attendance::findOrFail($id);
         $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id')->all();
+$studentClasses = StudentClass::pluck('batch','id' )->all();
 $subjects = Subject::pluck('name','id')->all();
 $slots = Slot::pluck('name','id')->all();
 

@@ -39,7 +39,7 @@
                 <tbody>
                 @foreach($studentClassUsers as $studentClassUser)
                     <tr>
-                            <td>{{ isset($studentClassUser->studentClass->batch) ? $studentClassUser->studentClass->batch : '' }}</td>
+                            <td>{{ isset($studentClassUser->studentClass->batch_name) ? $studentClassUser->studentClass->batch_name : '' }}</td>
                             <td>{{ isset($studentClassUser->user->name) ? $studentClassUser->user->name : '' }}</td>
 
                         <td>

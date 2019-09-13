@@ -43,7 +43,7 @@
                 @foreach($attendances as $attendance)
                     <tr>
                             <td>{{ isset($attendance->teacher->name) ? $attendance->teacher->name : '' }}</td>
-                            <td>{{ isset($attendance->studentClass->batch) ? $attendance->studentClass->batch : '' }}</td>
+                            <td>{{ isset($attendance->studentClass->batch_name) ? $attendance->studentClass->batch_name : '' }}</td>
                             <td>{{ isset($attendance->subject->name) ? $attendance->subject->name : '' }}</td>
                             <td>{{ isset($attendance->slot->name) ? $attendance->slot->name : '' }}</td>
                             <td>{{ $attendance->marked_at }}</td>

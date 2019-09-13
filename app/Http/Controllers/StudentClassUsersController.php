@@ -31,7 +31,8 @@ class StudentClassUsersController extends Controller
      */
     public function create()
     {
-        $studentClasses = StudentClass::pluck('batch','id')->all();
+
+        $studentClasses = StudentClass::pluck('batch','id' )->all();
 $users = User::pluck('name','id')->all();
 
         return view('student_class_users.create', compact('studentClasses','users'));
@@ -86,7 +87,7 @@ $users = User::pluck('name','id')->all();
     public function edit($id)
     {
         $studentClassUser = StudentClassUser::findOrFail($id);
-        $studentClasses = StudentClass::pluck('batch','id')->all();
+        $studentClasses = StudentClass::pluck('batch','id' )->all();
 $users = User::pluck('name','id')->all();
 
         return view('student_class_users.edit', compact('studentClassUser','studentClasses','users'));

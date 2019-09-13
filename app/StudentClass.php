@@ -47,6 +47,11 @@ class StudentClass extends Model
      */
     protected $casts = [];
 
+    public function getBatchNameAttribute()
+    {
+        return "{$this->batch}({$this->branch})";
+    }
+
     /**
      * Get the classTeacher for this model.
      *

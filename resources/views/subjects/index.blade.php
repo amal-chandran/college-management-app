@@ -42,7 +42,7 @@
                     <tr>
                             <td>{{ $subject->name }}</td>
                             <td>{{ isset($subject->teacher->name) ? $subject->teacher->name : '' }}</td>
-                            <td>{{ isset($subject->studentClass->batch) ? $subject->studentClass->batch : '' }}</td>
+                            <td>{{ isset($subject->studentClass->batch_name) ? $subject->studentClass->batch_name : '' }}</td>
 
                         <td>
 

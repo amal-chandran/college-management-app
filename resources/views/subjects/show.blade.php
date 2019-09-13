@@ -43,7 +43,7 @@
             <dt>Teacher</dt>
             <dd>{{ isset($subject->teacher->name) ? $subject->teacher->name : '' }}</dd>
             <dt>Student Class</dt>
-            <dd>{{ isset($subject->studentClass->batch) ? $subject->studentClass->batch : '' }}</dd>
+            <dd>{{ isset($subject->studentClass->batch_name) ? $subject->studentClass->batch_name : '' }}</dd>
 
 </dl>
     </div>

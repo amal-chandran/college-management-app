@@ -41,7 +41,7 @@
                                 <dt>Teacher</dt>
             <dd>{{ isset($attendance->teacher->name) ? $attendance->teacher->name : '' }}</dd>
             <dt>Student Class</dt>
-            <dd>{{ isset($attendance->studentClass->batch) ? $attendance->studentClass->batch : '' }}</dd>
+            <dd>{{ isset($attendance->studentClass->batch_name) ? $attendance->studentClass->batch_name : '' }}</dd>
             <dt>Subject</dt>
             <dd>{{ isset($attendance->subject->name) ? $attendance->subject->name : '' }}</dd>
             <dt>Slot</dt>

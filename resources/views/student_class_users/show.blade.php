@@ -39,7 +39,7 @@
     <div class="card-body">
             <dl class="dl-horizontal">
                                 <dt>Student Class</dt>
-            <dd>{{ isset($studentClassUser->studentClass->batch) ? $studentClassUser->studentClass->batch : '' }}</dd>
+            <dd>{{ isset($studentClassUser->studentClass->batch_name) ? $studentClassUser->studentClass->batch_name : '' }}</dd>
             <dt>User</dt>
             <dd>{{ isset($studentClassUser->user->name) ? $studentClassUser->user->name : '' }}</dd>
 

@@ -32,7 +32,7 @@ class SubjectsController extends Controller
     public function create()
     {
         $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id')->all();
+$studentClasses = StudentClass::pluck('batch','id' )->all();
 
         return view('subjects.create', compact('teachers','studentClasses'));
     }
@@ -87,7 +87,7 @@ $studentClasses = StudentClass::pluck('batch','id')->all();
     {
         $subject = Subject::findOrFail($id);
         $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id')->all();
+$studentClasses = StudentClass::pluck('batch','id' )->all();
 
         return view('subjects.edit', compact('subject','teachers','studentClasses'));
     }
