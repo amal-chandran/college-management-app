@@ -45,12 +45,16 @@
                             <td>{{ isset($studentClass->classTeacher->name) ? $studentClass->classTeacher->name : '' }}</td>
 
                         <td>
+<div class="float-right">
 
                             {!! Form::open([
                                 'method' =>'DELETE',
                                 'route'  => ['student_classes.student_class.destroy', $studentClass->id],
                                 'style'  => 'display: inline;',
                             ]) !!}
+                                <a href="{{ route('student_class_users.student_class_user.manage', $studentClass->id ) }}" class="btn mr-2 btn-sm btn-primary" title="Edit Student Class">
+                                    <span class="fas fa-pen" aria-hidden="true"></span> Students Manage
+                                </a>
                                 <div class="btn-group btn-group-xs float-right" role="group">
                                     <a href="{{ route('student_classes.student_class.show', $studentClass->id ) }}" class="btn btn-sm btn-info" title="Show Student Class">
                                         <span class="fas fa-eye" aria-hidden="true"></span> Open
@@ -69,6 +73,8 @@
                                     !!}
                                 </div>
                             {!! Form::close() !!}
+</div>
+
                         </td>
                     </tr>
                 @endforeach
