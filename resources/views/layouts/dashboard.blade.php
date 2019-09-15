@@ -14,6 +14,7 @@
   <link href="{{ asset('css/all.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
 
 </head>
@@ -249,6 +250,7 @@
   <script src="{{ asset('js/adminlte.min.js') }}"></script>
   <script src="{{ asset('js/moment.min.js') }}"></script>
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
+  <script src="{{ asset('js/datatables.min.js') }}"></script>
 
   <script>
     $(function() {
