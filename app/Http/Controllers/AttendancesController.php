@@ -73,11 +73,26 @@ $slots = Slot::pluck('name','id')->all();
      *
      * @return Illuminate\View\View
      */
-    public function show($id)
+    public function show($attendance_id)
     {
-        $attendance = Attendance::with('teacher','studentclass','subject','slot')->findOrFail($id);
+        $attendance = Attendance::with('teacher','studentclass','subject','slot')->findOrFail($attendance_id);
+        $attendees=User::join("user_has_roles",'users.id','=','user_has_roles.user_id')
+        ->join("roles",function ($join){ $join->on('roles.id','=','user_has_roles.role_id')->where("roles.name","=","student"); })
+        ->join('student_class_user','users.id','=','student_class_user.user_id')
+        ->join('attendances',function ($join) use ($attendance_id)
+        {
+            $join->on('student_class_user.student_class_id','=','attendances.student_class_id')
+            ->where('attendances.id','=',$attendance_id);
+        })
+        ->leftJoin('attendees', function ($join) use ($attendance_id) {
+            $join->on('users.id','=','attendees.student_id')
+            ->where('attendees.attendance_id','=',$attendance_id);
+        })
+        ->select("users.*",'attendees.status','attendees.id as attendees_id')
+        ->paginate(25);
 
-        return view('attendances.show', compact('attendance'));
+
+        return view('attendances.show', compact('attendance','attendees','attendance_id'));
     }
 
     /**

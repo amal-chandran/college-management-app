@@ -146,6 +146,8 @@ Route::group([
          ->name('attendees.attendee.edit')->where('id', '[0-9]+');
     Route::post('/', 'AttendeesController@store')
          ->name('attendees.attendee.store');
+    Route::post('/storeOrUpdate', 'AttendeesController@storeOrUpdate')
+         ->name('attendees.attendee.storeOrUpdate');
     Route::put('attendee/{attendee}', 'AttendeesController@update')
          ->name('attendees.attendee.update')->where('id', '[0-9]+');
     Route::delete('/attendee/{attendee}','AttendeesController@destroy')

@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendance extends Model
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -41,14 +41,14 @@ class Attendance extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the teacher for this model.
      *
@@ -111,4 +111,9 @@ class Attendance extends Model
         return \DateTime::createFromFormat('Y-m-d H:i:s', $value)->format('Y-m-d h:i:s A');
     }
 
+
+    public function getMarkedAtHumanAttribute($value)
+    {
+        return \DateTime::createFromFormat('Y-m-d h:i:s A', $this->marked_at)->format('D M Y h:i A');
+    }
 }

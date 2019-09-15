@@ -23,3 +23,10 @@
     </div>
 </div>
 
+<div class="form-group {{ $errors->has('roles') ? 'has-error' : '' }}">
+    {!! Form::label('roles','Role',['class' => 'col-md-2 control-label']) !!}
+    <div class="col-md-10">
+        {!! Form::select('roles',$roles,null, ['class' => 'form-control', 'placeholder' => 'Select Role', ]) !!}
+        {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
+    </div>
+</div>

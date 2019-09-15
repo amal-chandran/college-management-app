@@ -33,6 +33,7 @@
                             <th>Id</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Roles</th>
                             <th>Created</th>
 
                         <th></th>
@@ -43,9 +44,10 @@
                     <tr>
                             <td>{{ $user->id }}</td>
                             <td>
-                                <img src="{{Avatar::create($user->name)->toBase64()}}" class="img-circle" style="width: 30px;" alt="{{$user->name}}">
+                                <img src="{{Avatar::create($user->name)->toBase64()}}" class="img-circle mr-1" style="width: 30px;" alt="{{$user->name}}">
                                 {{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ implode(',',$user->roles->pluck('name')->toArray()) }}</td>
                             <td>{{ $user->created_at }}</td>
 
                         <td>

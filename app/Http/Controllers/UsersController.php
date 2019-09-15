@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -29,9 +30,9 @@ class UsersController extends Controller
      */
     public function create()
     {
+        $roles=Role::pluck("name",'name')->all();
 
-
-        return view('users.create');
+        return view('users.create',compact('roles'));
     }
 
     /**
@@ -47,9 +48,11 @@ class UsersController extends Controller
         try {
             $data = $this->getData($request);
 
-            User::create($data);
+           $createdUser= User::create($data);
 
-            return redirect()->route('users.user.index')
+            $createdUser->syncRoles($request['roles']);
+
+           return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully added.');
         } catch (Exception $exception) {
 
@@ -82,9 +85,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
+        $roles=Role::pluck("name",'name')->all();
 
-
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user','roles'));
     }
 
     /**
@@ -103,6 +106,7 @@ class UsersController extends Controller
 
             $user = User::findOrFail($id);
             $user->update($data);
+            $user->syncRoles($request['roles']);
 
             return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully updated.');
@@ -147,6 +151,7 @@ class UsersController extends Controller
             'name' => 'required|string|min:1|max:191',
             'email' => 'required|string|email|min:1|max:191',
             'password' => 'required|min:8|max:100',
+            'roles' => 'required',
         ];
 
 

@@ -62,6 +62,26 @@ $attendances = Attendance::pluck('created_at','id')->all();
         }
     }
 
+    public function storeOrUpdate(Request $request)
+    {
+        $data=$request->only(['attendance_id','student_id','status']);
+
+        try {
+
+
+            foreach ($data['student_id'] as $key => $value) {
+                Attendee::updateOrCreate(['attendance_id'=>$data['attendance_id'],"student_id"=>$value],['status'=>$data['status'][$value]]);
+            }
+
+            return back()
+                ->with('success_message', 'Attendees was successfully saved.');
+        } catch (Exception $exception) {
+
+            return back()->withInput()
+                ->withErrors(['unexpected_error' => 'Unexpected error occurred while trying to process your request.']);
+        }
+    }
+
     /**
      * Display the specified attendee.
      *
