@@ -170,6 +170,8 @@ return [
         Proengsoft\JsValidation\JsValidationServiceProvider::class,
         Lookitsatravis\Listify\ListifyServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
+        Yajra\Datatables\HtmlServiceProvider::class,
+        Yajra\Datatables\ButtonsServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
         RachidLaasri\LaravelInstaller\Providers\LaravelInstallerServiceProvider::class,
         Laravolt\Avatar\ServiceProvider::class,
