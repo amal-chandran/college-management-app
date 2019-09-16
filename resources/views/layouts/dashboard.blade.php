@@ -251,6 +251,7 @@
   <script src="{{ asset('js/moment.min.js') }}"></script>
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/datatables.min.js') }}"></script>
+  <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 
   <script>
     $(function() {
@@ -273,7 +274,7 @@
         });
       });
   </script>
-
+  @stack('scripts')
 </body>
 
 </html>
