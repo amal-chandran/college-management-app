@@ -176,14 +176,14 @@
                 ->addItemClass("nav-link")
                 ->addItemParentClass("nav-item")
                 ->addClass("nav nav-pills nav-sidebar flex-column")
-                ->action("DashboardController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Dashboard')
-                ->action("AttendancesController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Attendance')
-                ->action("SlotsController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Slots')
-                ->action("SubjectsController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Subjects')
-                ->action("StudentClassesController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Student Class')
-                ->action("UsersController@index",'<i class="nav-icon fas fa-users"></i> Users')
-                ->action("RolesController@index",'<i class="nav-icon fas fa-shield-alt"></i> Roles')
-                ->action("PermissionsController@index",'<i class="nav-icon fas fa-shield-alt"></i> Permissions')
+                ->actionIf(Auth::getUser()->can('menu-dashboard'),"DashboardController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Dashboard')
+                ->actionIf(Auth::getUser()->can('menu-attendances'),"AttendancesController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Attendance')
+                ->actionIf(Auth::getUser()->can('menu-slots'),"SlotsController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Slots')
+                ->actionIf(Auth::getUser()->can('menu-subjects'),"SubjectsController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Subjects')
+                ->actionIf(Auth::getUser()->can('menu-student-class'),"StudentClassesController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Student Class')
+                ->actionIf(Auth::getUser()->can('menu-users'),"UsersController@index",'<i class="nav-icon fas fa-users"></i> Users')
+                ->actionIf(Auth::getUser()->can('menu-roles'),"RolesController@index",'<i class="nav-icon fas fa-shield-alt"></i> Roles')
+                ->actionIf(Auth::getUser()->can('menu-permissions'),"PermissionsController@index",'<i class="nav-icon fas fa-shield-alt"></i> Permissions')
                 }}
         </nav>
         <!-- /.sidebar-menu -->

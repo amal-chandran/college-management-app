@@ -3,10 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Models\Role as BaseModel;
 
-class Role extends Model
+class Role extends BaseModel
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -16,10 +17,10 @@ class Role extends Model
     protected $table = 'roles';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,8 +29,8 @@ class Role extends Model
      * @var array
      */
     protected $fillable = [
-                  'name'
-              ];
+        'name'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -37,14 +38,14 @@ class Role extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the roleHasPermission for this model.
      *
@@ -52,7 +53,7 @@ class Role extends Model
      */
     public function roleHasPermission()
     {
-        return $this->hasOne('App\RoleHasPermission','role_id','id');
+        return $this->hasOne('App\RoleHasPermission', 'role_id', 'id');
     }
 
     /**
@@ -62,7 +63,7 @@ class Role extends Model
      */
     public function userHasRole()
     {
-        return $this->hasOne('App\UserHasRole','role_id','id');
+        return $this->hasOne('App\UserHasRole', 'role_id', 'id');
     }
 
 
@@ -87,5 +88,4 @@ class Role extends Model
     {
         return \DateTime::createFromFormat('j/n/Y g:i A', $value);
     }
-
 }
