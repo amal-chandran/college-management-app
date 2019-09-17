@@ -1,0 +1,104 @@
+<?php
+
+namespace App\DataTables;
+
+use App\User;
+use Yajra\Datatables\Services\DataTable;
+use App\Attendance;
+use App\StudentClass;
+use App\Attendee;
+
+class AttendancesDataTable extends DataTable
+{
+    /**
+     * Build DataTable class.
+     *
+     * @return \Yajra\Datatables\Engines\BaseEngine
+     */
+    public function dataTable()
+    {
+        return $this->datatables
+            ->collection($this->query());
+        // ->addColumn('action', 'attendances.action');
+    }
+
+    /**
+     * Get the query object to be processed by dataTables.
+     *
+     * @return \Illuminate\Database\Eloquent\Builder|\Illuminate\Database\Query\Builder|\Illuminate\Support\Collection
+     */
+    public function query()
+    {
+        $dateHeads = Attendance::where([['student_class_id', '=', $this->student_class_id], ['subject_id', '=', $this->subject_id],])->get();
+
+
+        $students = StudentClass::find($this->student_class_id);
+        $studentsList = $students->students;
+        $studentsList = $studentsList->map(function ($student) use ($dateHeads) {
+            $studentData = collect(['id' => $student->id, 'name' => $student->name]);
+            foreach ($dateHeads as $dateHead) {
+                $studentData->put($this->getMarkedAtHuman($dateHead->marked_at), Attendee::where('attendance_id', '=', $dateHead->id)->where('student_id', '=', $student->id)->pluck('status')->get(0));
+            }
+
+
+            return $studentData;
+        });
+
+        return $this->applyScopes($studentsList);
+    }
+
+    /**
+     * Optional method if you want to use html builder.
+     *
+     * @return \Yajra\Datatables\Html\Builder
+     */
+    public function html()
+    {
+        return $this->builder()
+            ->columns($this->getColumns())
+            ->minifiedAjax('')
+            // ->addAction(['width' => '80px'])
+            ->parameters([
+                'dom'     => 'Bfrtip',
+                'order'   => [[0, 'asc']],
+                'buttons' => [
+                    // 'create',
+                    'export',
+                    'print',
+                    'reset',
+                    'reload',
+                ],
+            ]);
+    }
+
+    /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        $heads = collect(['id', 'name']);
+        $dateHeads = Attendance::where([['student_class_id', '=', $this->student_class_id], ['subject_id', '=', $this->subject_id],])->pluck("marked_at")->all();
+
+        $dateHeads= collect($dateHeads)->map(function ($dateHead){
+            return $this->getMarkedAtHuman($dateHead);
+        });
+        $heads=$heads->concat($dateHeads);
+
+        return $heads->toArray();
+    }
+    public function getMarkedAtHuman($value)
+    {
+        return \DateTime::createFromFormat('Y-m-d h:i:s A', $value)->format('d_M');
+    }
+    /**
+     * Get filename for export.
+     *
+     * @return string
+     */
+    protected function filename()
+    {
+        return 'attendances_' . time();
+    }
+}
