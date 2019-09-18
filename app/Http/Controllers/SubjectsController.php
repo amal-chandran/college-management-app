@@ -8,6 +8,7 @@ use App\Subject;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
+use Auth;
 
 class SubjectsController extends Controller
 {
@@ -17,9 +18,19 @@ class SubjectsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $subjects = Subject::with('teacher','studentclass')->paginate(25);
+
+        if ($request->user()->hasRole('student')) {
+            $subjects = Subject::join('student_class_user', function ($join) use ($request) {
+                $join->on('subjects.student_class_id', '=', 'student_class_user.student_class_id')
+                    ->where('student_class_user.user_id', '=', $request->user()->id);
+            })
+                ->select("subjects.*")->paginate(25);
+        } else {
+
+            $subjects = Subject::with('teacher', 'studentclass')->paginate(25);
+        }
 
         return view('subjects.index', compact('subjects'));
     }
@@ -31,10 +42,10 @@ class SubjectsController extends Controller
      */
     public function create()
     {
-        $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id' )->all();
+        $teachers = User::pluck('name', 'id')->all();
+        $studentClasses = StudentClass::pluck('batch', 'id')->all();
 
-        return view('subjects.create', compact('teachers','studentClasses'));
+        return view('subjects.create', compact('teachers', 'studentClasses'));
     }
 
     /**
@@ -71,7 +82,7 @@ $studentClasses = StudentClass::pluck('batch','id' )->all();
      */
     public function show($id)
     {
-        $subject = Subject::with('teacher','studentclass')->findOrFail($id);
+        $subject = Subject::with('teacher', 'studentclass')->findOrFail($id);
 
         return view('subjects.show', compact('subject'));
     }
@@ -86,10 +97,10 @@ $studentClasses = StudentClass::pluck('batch','id' )->all();
     public function edit($id)
     {
         $subject = Subject::findOrFail($id);
-        $teachers = User::pluck('name','id')->all();
-$studentClasses = StudentClass::pluck('batch','id' )->all();
+        $teachers = User::pluck('name', 'id')->all();
+        $studentClasses = StudentClass::pluck('batch', 'id')->all();
 
-        return view('subjects.edit', compact('subject','teachers','studentClasses'));
+        return view('subjects.edit', compact('subject', 'teachers', 'studentClasses'));
     }
 
     /**
@@ -173,5 +184,4 @@ $studentClasses = StudentClass::pluck('batch','id' )->all();
 
         return $data;
     }
-
 }

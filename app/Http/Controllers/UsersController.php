@@ -30,9 +30,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $roles=Role::pluck("name",'name')->all();
+        $roles = Role::pluck("name", 'name')->all();
 
-        return view('users.create',compact('roles'));
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -48,11 +48,11 @@ class UsersController extends Controller
         try {
             $data = $this->getData($request);
 
-           $createdUser= User::create($data);
+            $createdUser = User::create($data);
 
             $createdUser->syncRoles($request['roles']);
 
-           return redirect()->route('users.user.index')
+            return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully added.');
         } catch (Exception $exception) {
 
@@ -85,9 +85,9 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id);
-        $roles=Role::pluck("name",'name')->all();
+        $roles = Role::pluck("name", 'name')->all();
 
-        return view('users.edit', compact('user','roles'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -171,5 +171,4 @@ class UsersController extends Controller
 
         return $data;
     }
-
 }

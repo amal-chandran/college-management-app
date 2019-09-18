@@ -81,10 +81,10 @@ class AttendancesDataTable extends DataTable
         $heads = collect(['id', 'name']);
         $dateHeads = Attendance::where([['student_class_id', '=', $this->student_class_id], ['subject_id', '=', $this->subject_id],])->pluck("marked_at")->all();
 
-        $dateHeads= collect($dateHeads)->map(function ($dateHead){
+        $dateHeads = collect($dateHeads)->map(function ($dateHead) {
             return $this->getMarkedAtHuman($dateHead);
         });
-        $heads=$heads->concat($dateHeads);
+        $heads = $heads->concat($dateHeads);
 
         return $heads->toArray();
     }

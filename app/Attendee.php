@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Attendee extends Model
 {
-    
+
 
     /**
      * The database table used by the model.
@@ -16,10 +16,10 @@ class Attendee extends Model
     protected $table = 'attendees';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,10 +28,10 @@ class Attendee extends Model
      * @var array
      */
     protected $fillable = [
-                  'student_id',
-                  'attendance_id',
-                  'status'
-              ];
+        'student_id',
+        'attendance_id',
+        'status'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -39,14 +39,14 @@ class Attendee extends Model
      * @var array
      */
     protected $dates = [];
-    
+
     /**
      * The attributes that should be cast to native types.
      *
      * @var array
      */
     protected $casts = [];
-    
+
     /**
      * Get the student for this model.
      *
@@ -54,7 +54,7 @@ class Attendee extends Model
      */
     public function student()
     {
-        return $this->belongsTo('App\User','student_id');
+        return $this->belongsTo('App\User', 'student_id');
     }
 
     /**
@@ -64,9 +64,6 @@ class Attendee extends Model
      */
     public function attendance()
     {
-        return $this->belongsTo('App\Attendance','attendance_id');
+        return $this->belongsTo('App\Attendance', 'attendance_id');
     }
-
-
-
 }

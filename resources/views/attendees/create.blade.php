@@ -4,41 +4,41 @@
 
 
 <div class="card">
-        <div class="card-header">
-          <h3 class="float-left mb-0">Create New Attendee</h3>
-          <div class="btn-group btn-group-sm float-right" role="group">
-                <a href="{{ route('attendees.attendee.index') }}" class="btn btn-primary" title="Show All Attendee">
-                    <span class="fas fa-th-list" aria-hidden="true"></span> All List
-                </a>
-           </div>
+    <div class="card-header">
+        <h3 class="float-left mb-0">Create New Attendee</h3>
+        <div class="btn-group btn-group-sm float-right" role="group">
+            <a href="{{ route('attendees.attendee.index') }}" class="btn btn-primary" title="Show All Attendee">
+                <span class="fas fa-th-list" aria-hidden="true"></span> All List
+            </a>
         </div>
-        <div class="card-body">
+    </div>
+    <div class="card-body">
 
-                @if ($errors->any())
-                <ul class="list-unstyled alert alert-danger">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            @endif
+        @if ($errors->any())
+        <ul class="list-unstyled alert alert-danger">
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+        @endif
 
-            {!! Form::open([
-                'route' => 'attendees.attendee.store',
-                'class' => 'form-horizontal',
-                'name' => 'create_attendee_form',
-                'id' => 'create_attendee_form',
-                
-                ])
-            !!}
+        {!! Form::open([
+        'route' => 'attendees.attendee.store',
+        'class' => 'form-horizontal',
+        'name' => 'create_attendee_form',
+        'id' => 'create_attendee_form',
 
-            @include ('attendees.form', ['attendee' => null,])
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    {!! Form::submit('Add', ['class' => 'btn btn-primary']) !!}
-                </div>
+        ])
+        !!}
+
+        @include ('attendees.form', ['attendee' => null,])
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                {!! Form::submit('Add', ['class' => 'btn btn-primary']) !!}
             </div>
-
-            {!! Form::close() !!}
         </div>
-      </div>
+
+        {!! Form::close() !!}
+    </div>
+</div>
 @endsection

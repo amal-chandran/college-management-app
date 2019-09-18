@@ -19,7 +19,7 @@ class AttendeesController extends Controller
      */
     public function index()
     {
-        $attendees = Attendee::with('student','attendance')->paginate(25);
+        $attendees = Attendee::with('student', 'attendance')->paginate(25);
 
         return view('attendees.index', compact('attendees'));
     }
@@ -31,10 +31,10 @@ class AttendeesController extends Controller
      */
     public function create()
     {
-        $students = User::pluck('name','id')->all();
-$attendances = Attendance::pluck('created_at','id')->all();
+        $students = User::pluck('name', 'id')->all();
+        $attendances = Attendance::pluck('created_at', 'id')->all();
 
-        return view('attendees.create', compact('students','attendances'));
+        return view('attendees.create', compact('students', 'attendances'));
     }
 
     /**
@@ -64,13 +64,13 @@ $attendances = Attendance::pluck('created_at','id')->all();
 
     public function storeOrUpdate(Request $request)
     {
-        $data=$request->only(['attendance_id','student_id','status']);
+        $data = $request->only(['attendance_id', 'student_id', 'status']);
 
         try {
 
 
             foreach ($data['student_id'] as $key => $value) {
-                Attendee::updateOrCreate(['attendance_id'=>$data['attendance_id'],"student_id"=>$value],['status'=>$data['status'][$value]]);
+                Attendee::updateOrCreate(['attendance_id' => $data['attendance_id'], "student_id" => $value], ['status' => $data['status'][$value]]);
             }
 
             return back()
@@ -91,7 +91,7 @@ $attendances = Attendance::pluck('created_at','id')->all();
      */
     public function show($id)
     {
-        $attendee = Attendee::with('student','attendance')->findOrFail($id);
+        $attendee = Attendee::with('student', 'attendance')->findOrFail($id);
 
         return view('attendees.show', compact('attendee'));
     }
@@ -106,10 +106,10 @@ $attendances = Attendance::pluck('created_at','id')->all();
     public function edit($id)
     {
         $attendee = Attendee::findOrFail($id);
-        $students = User::pluck('name','id')->all();
-$attendances = Attendance::pluck('created_at','id')->all();
+        $students = User::pluck('name', 'id')->all();
+        $attendances = Attendance::pluck('created_at', 'id')->all();
 
-        return view('attendees.edit', compact('attendee','students','attendances'));
+        return view('attendees.edit', compact('attendee', 'students', 'attendances'));
     }
 
     /**
@@ -193,5 +193,4 @@ $attendances = Attendance::pluck('created_at','id')->all();
 
         return $data;
     }
-
 }

@@ -30,7 +30,7 @@ class StudentClassesController extends Controller
      */
     public function create()
     {
-        $classTeachers = User::pluck('name','id')->all();
+        $classTeachers = User::pluck('name', 'id')->all();
 
         return view('student_classes.create', compact('classTeachers'));
     }
@@ -84,9 +84,9 @@ class StudentClassesController extends Controller
     public function edit($id)
     {
         $studentClass = StudentClass::findOrFail($id);
-        $classTeachers = User::pluck('name','id')->all();
+        $classTeachers = User::pluck('name', 'id')->all();
 
-        return view('student_classes.edit', compact('studentClass','classTeachers'));
+        return view('student_classes.edit', compact('studentClass', 'classTeachers'));
     }
 
     /**
@@ -170,5 +170,4 @@ class StudentClassesController extends Controller
 
         return $data;
     }
-
 }

@@ -16,10 +16,10 @@ class Attendance extends Model
     protected $table = 'attendances';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,12 +28,12 @@ class Attendance extends Model
      * @var array
      */
     protected $fillable = [
-                  'teacher_id',
-                  'student_class_id',
-                  'subject_id',
-                  'slot_id',
-                  'marked_at'
-              ];
+        'teacher_id',
+        'student_class_id',
+        'subject_id',
+        'slot_id',
+        'marked_at'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -56,7 +56,7 @@ class Attendance extends Model
      */
     public function teacher()
     {
-        return $this->belongsTo('App\User','teacher_id');
+        return $this->belongsTo('App\User', 'teacher_id');
     }
 
     /**
@@ -66,7 +66,7 @@ class Attendance extends Model
      */
     public function studentClass()
     {
-        return $this->belongsTo('App\StudentClass','student_class_id');
+        return $this->belongsTo('App\StudentClass', 'student_class_id');
     }
 
     /**
@@ -76,7 +76,7 @@ class Attendance extends Model
      */
     public function subject()
     {
-        return $this->belongsTo('App\Subject','subject_id');
+        return $this->belongsTo('App\Subject', 'subject_id');
     }
 
     /**
@@ -86,7 +86,7 @@ class Attendance extends Model
      */
     public function slot()
     {
-        return $this->belongsTo('App\Slot','slot_id');
+        return $this->belongsTo('App\Slot', 'slot_id');
     }
 
     /**

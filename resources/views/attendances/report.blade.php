@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="card p-4">
-<div>
-    {!! $dataTable->table() !!}
+    <div>
+        {!! $dataTable->table() !!}
+    </div>
 </div>
-</div>
-    @endsection
+@endsection
 
 @push('scripts')
 {!! $dataTable->scripts() !!}

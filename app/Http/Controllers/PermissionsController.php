@@ -167,5 +167,4 @@ class PermissionsController extends Controller
 
         return $data;
     }
-
 }

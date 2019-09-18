@@ -19,7 +19,7 @@ class SlotsController extends Controller
      */
     public function index()
     {
-        $slots = Slot::with('studentclass','subject')->paginate(25);
+        $slots = Slot::with('studentclass', 'subject')->paginate(25);
 
         return view('slots.index', compact('slots'));
     }
@@ -31,10 +31,10 @@ class SlotsController extends Controller
      */
     public function create()
     {
-        $studentClasses = StudentClass::pluck('batch','id' )->all();
-$subjects = Subject::pluck('name','id')->all();
+        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $subjects = Subject::pluck('name', 'id')->all();
 
-        return view('slots.create', compact('studentClasses','subjects'));
+        return view('slots.create', compact('studentClasses', 'subjects'));
     }
 
     /**
@@ -71,7 +71,7 @@ $subjects = Subject::pluck('name','id')->all();
      */
     public function show($id)
     {
-        $slot = Slot::with('studentclass','subject')->findOrFail($id);
+        $slot = Slot::with('studentclass', 'subject')->findOrFail($id);
 
         return view('slots.show', compact('slot'));
     }
@@ -86,10 +86,10 @@ $subjects = Subject::pluck('name','id')->all();
     public function edit($id)
     {
         $slot = Slot::findOrFail($id);
-        $studentClasses = StudentClass::pluck('batch','id' )->all();
-$subjects = Subject::pluck('name','id')->all();
+        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $subjects = Subject::pluck('name', 'id')->all();
 
-        return view('slots.edit', compact('slot','studentClasses','subjects'));
+        return view('slots.edit', compact('slot', 'studentClasses', 'subjects'));
     }
 
     /**
@@ -174,5 +174,4 @@ $subjects = Subject::pluck('name','id')->all();
 
         return $data;
     }
-
 }

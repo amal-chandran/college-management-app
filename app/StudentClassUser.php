@@ -16,10 +16,10 @@ class StudentClassUser extends Model
     protected $table = 'student_class_user';
 
     /**
-    * The database primary key value.
-    *
-    * @var string
-    */
+     * The database primary key value.
+     *
+     * @var string
+     */
     protected $primaryKey = 'id';
 
     /**
@@ -28,9 +28,9 @@ class StudentClassUser extends Model
      * @var array
      */
     protected $fillable = [
-                  'student_class_id',
-                  'user_id'
-              ];
+        'student_class_id',
+        'user_id'
+    ];
 
     /**
      * The attributes that should be mutated to dates.
@@ -53,7 +53,7 @@ class StudentClassUser extends Model
      */
     public function studentClass()
     {
-        return $this->belongsTo('App\StudentClass','student_class_id');
+        return $this->belongsTo('App\StudentClass', 'student_class_id');
     }
 
     /**
@@ -63,9 +63,6 @@ class StudentClassUser extends Model
      */
     public function user()
     {
-        return $this->belongsTo('App\User','user_id');
+        return $this->belongsTo('App\User', 'user_id');
     }
-
-
-
 }
