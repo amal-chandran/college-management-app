@@ -17,10 +17,12 @@
 <div class="card">
     <div class="card-header">
         <h4 class="cards-title mb-0 float-left">Attendances</h4>
+        @can('create-attendance')
         <a href="{{ route('attendances.attendance.create') }}" class="btn btn-success btn-sm float-right"
             title="Create New Attendance">
             <span class="fas fa-plus" aria-hidden="true"></span> Create Attendances
         </a>
+        @endcan
     </div>
     @if(count($attendances) == 0)
     <div class="card-body p-0 text-center">
@@ -57,15 +59,21 @@
                         'route' => ['attendances.attendance.destroy', $attendance->id],
                         'style' => 'display: inline;',
                         ]) !!}
+
                         <div class="btn-group btn-group-xs float-right" role="group">
+                            @can('view-attendance')
                             <a href="{{ route('attendances.attendance.show', $attendance->id ) }}"
                                 class="btn btn-sm btn-info" title="Show Attendance">
                                 <span class="fas fa-eye" aria-hidden="true"></span> Open
                             </a>
+                            @endcan
+                            @can('edit-attendance')
                             <a href="{{ route('attendances.attendance.edit', $attendance->id ) }}"
                                 class="btn btn-sm btn-primary" title="Edit Attendance">
                                 <span class="fas fa-pen" aria-hidden="true"></span> Edit
                             </a>
+                            @endcan
+                            @can('delete-attendance')
 
                             {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                             [
@@ -75,6 +83,7 @@
                             'onclick' => 'return confirm("' . 'Click Ok to delete Attendance.' . '")'
                             ])
                             !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>

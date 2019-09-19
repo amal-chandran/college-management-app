@@ -17,9 +17,11 @@
 <div class="card">
     <div class="card-header">
         <h4 class="cards-title mb-0 float-left">Users</h4>
+        @can('create-users')
         <a href="{{ route('users.user.create') }}" class="btn btn-success btn-sm float-right" title="Create New User">
             <span class="fas fa-plus" aria-hidden="true"></span> Create Users
         </a>
+        @endcan
     </div>
     @if(count($users) == 0)
     <div class="card-body p-0 text-center">
@@ -59,14 +61,19 @@
                         'style' => 'display: inline;',
                         ]) !!}
                         <div class="btn-group btn-group-xs float-right" role="group">
+                            @can('view-users')
                             <a href="{{ route('users.user.show', $user->id ) }}" class="btn btn-sm btn-info"
                                 title="Show User">
                                 <span class="fas fa-eye" aria-hidden="true"></span> Open
                             </a>
+                            @endcan
+                            @can('edit-users')
                             <a href="{{ route('users.user.edit', $user->id ) }}" class="btn btn-sm btn-primary"
                                 title="Edit User">
                                 <span class="fas fa-pen" aria-hidden="true"></span> Edit
                             </a>
+                            @endcan
+                            @can('delete-users')
 
                             {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                             [
@@ -76,6 +83,7 @@
                             'onclick' => 'return confirm("' . 'Click Ok to delete User.' . '")'
                             ])
                             !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>

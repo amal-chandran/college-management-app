@@ -17,9 +17,12 @@
 <div class="card">
     <div class="card-header">
         <h4 class="cards-title mb-0 float-left">Slots</h4>
+        @can('create-slots')
+
         <a href="{{ route('slots.slot.create') }}" class="btn btn-success btn-sm float-right" title="Create New Slot">
             <span class="fas fa-plus" aria-hidden="true"></span> Create Slots
         </a>
+        @endcan
     </div>
     @if(count($slots) == 0)
     <div class="card-body p-0 text-center">
@@ -54,15 +57,21 @@
                         'style' => 'display: inline;',
                         ]) !!}
                         <div class="btn-group btn-group-xs float-right" role="group">
+                            @can('view-slots')
+
                             <a href="{{ route('slots.slot.show', $slot->id ) }}" class="btn btn-sm btn-info"
                                 title="Show Slot">
                                 <span class="fas fa-eye" aria-hidden="true"></span> Open
                             </a>
+                            @endcan
+                            @can('edit-slots')
+
                             <a href="{{ route('slots.slot.edit', $slot->id ) }}" class="btn btn-sm btn-primary"
                                 title="Edit Slot">
                                 <span class="fas fa-pen" aria-hidden="true"></span> Edit
                             </a>
-
+                            @endcan
+                            @can('delete-slots')
                             {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                             [
                             'type' => 'submit',
@@ -71,6 +80,7 @@
                             'onclick' => 'return confirm("' . 'Click Ok to delete Slot.' . '")'
                             ])
                             !!}
+                            @endcan
                         </div>
                         {!! Form::close() !!}
                     </td>
