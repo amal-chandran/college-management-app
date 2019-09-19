@@ -54,32 +54,39 @@
                         'route' => ['subjects.subject.destroy', $subject->id],
                         'style' => 'display: inline;',
                         ]) !!}
-                        <div class="btn-group btn-group-xs float-right" role="group">
-                            @can('view-subjects')
-                            <a href="{{ route('subjects.subject.show', $subject->id ) }}" class="btn btn-sm btn-info"
-                                title="Show Subject">
-                                <span class="fas fa-eye" aria-hidden="true"></span> Open
+                        <div class="float-right">
+
+                            <a href="{{ route('attendances.attendance.report', [$subject->student_class_id,$subject->id] ) }}"
+                                class="btn btn-sm btn-info" title="Attendance Report">
+                                Attendance Report
                             </a>
-                            @endcan
-                            @can('edit-subjects')
+                            <div class="btn-group btn-group-xs" role="group">
+                                @can('view-subjects')
+                                <a href="{{ route('subjects.subject.show', $subject->id ) }}"
+                                    class="btn btn-sm btn-info" title="Show Subject">
+                                    <span class="fas fa-eye" aria-hidden="true"></span> Open
+                                </a>
+                                @endcan
+                                @can('edit-subjects')
 
-                            <a href="{{ route('subjects.subject.edit', $subject->id ) }}" class="btn btn-sm btn-primary"
-                                title="Edit Subject">
-                                <span class="fas fa-pen" aria-hidden="true"></span> Edit
-                            </a>
-                            @endcan
-                            @can('delete-subjects')
+                                <a href="{{ route('subjects.subject.edit', $subject->id ) }}"
+                                    class="btn btn-sm btn-primary" title="Edit Subject">
+                                    <span class="fas fa-pen" aria-hidden="true"></span> Edit
+                                </a>
+                                @endcan
+                                @can('delete-subjects')
 
-                            {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
-                            [
-                            'type' => 'submit',
-                            'class' => 'btn btn-sm btn-danger',
-                            'title' => 'Delete Subject',
-                            'onclick' => 'return confirm("' . 'Click Ok to delete Subject.' . '")'
-                            ])
-                            !!}
-                            @endcan
+                                {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
+                                [
+                                'type' => 'submit',
+                                'class' => 'btn btn-sm btn-danger',
+                                'title' => 'Delete Subject',
+                                'onclick' => 'return confirm("' . 'Click Ok to delete Subject.' . '")'
+                                ])
+                                !!}
+                                @endcan
 
+                            </div>
                         </div>
                         {!! Form::close() !!}
                     </td>

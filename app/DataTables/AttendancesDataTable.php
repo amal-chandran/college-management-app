@@ -6,6 +6,7 @@ use App\User;
 use Yajra\Datatables\Services\DataTable;
 use App\Attendance;
 use App\StudentClass;
+use Auth;
 use App\Attendee;
 
 class AttendancesDataTable extends DataTable
@@ -31,9 +32,13 @@ class AttendancesDataTable extends DataTable
     {
         $dateHeads = Attendance::where([['student_class_id', '=', $this->student_class_id], ['subject_id', '=', $this->subject_id],])->get();
 
+        if (Auth::user()->hasRole('student')) {
+            $studentsList = collect([Auth::user()]);
+        } else {
+            $students = StudentClass::find($this->student_class_id);
+            $studentsList = $students->students;
+        }
 
-        $students = StudentClass::find($this->student_class_id);
-        $studentsList = $students->students;
         $studentsList = $studentsList->map(function ($student) use ($dateHeads) {
             $studentData = collect(['id' => $student->id, 'name' => $student->name]);
             foreach ($dateHeads as $dateHead) {
