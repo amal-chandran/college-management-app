@@ -29,6 +29,15 @@ class SubjectsController extends Controller
                 ->select("subjects.*")->paginate(25);
         } elseif ($request->user()->hasRole('teacher')) {
             $subjects = Subject::with('teacher', 'studentclass')->where('teacher_id', '=', $request->user()->id)->paginate(25);
+        } elseif ($request->user()->hasRole('class-teacher')) {
+            $subjects = Subject::with('teacher', 'studentclass')
+                ->join('student_classes', function ($join) use ($request) {
+                    $join->on('subjects.student_class_id', '=', 'student_classes.id')
+                        ->where('student_classes.class_teacher_id', '=', $request->user()->id);
+                })
+                ->select('subjects.*')
+                // ->where('teacher_id', '=', $request->user()->id)
+                ->paginate(25);
         } else {
 
             $subjects = Subject::with('teacher', 'studentclass')->paginate(25);
