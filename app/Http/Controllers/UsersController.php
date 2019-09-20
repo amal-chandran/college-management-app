@@ -16,9 +16,13 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::paginate(25);
+        if ($request->user()->hasRole('head-department')) {
+            $users = User::role('student')->paginate(25);
+        } else {
+            $users = User::paginate(25);
+        }
 
         return view('users.index', compact('users'));
     }
@@ -28,9 +32,14 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        $roles = Role::pluck("name", 'name')->all();
+        if ($request->user()->hasRole('head-department')) {
+            $roles = Role::where('name', '=', 'student')->pluck("name", 'name')->all();
+        } else {
+            $roles = Role::pluck("name", 'name')->all();
+        }
+
 
         return view('users.create', compact('roles'));
     }
@@ -82,10 +91,18 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
-        $roles = Role::pluck("name", 'name')->all();
+        $user = User::join('user_has_roles', 'user_has_roles.user_id', '=', 'users.id')
+            ->join('roles', 'user_has_roles.role_id', '=', 'roles.id')
+            ->where('users.id', '=', $id)
+            ->select('users.*', 'roles.name as roles')->first();
+        if ($request->user()->hasRole('head-department')) {
+            $roles = Role::where('name', '=', 'student')->pluck("name", 'name')->all();
+        } else {
+            $roles = Role::pluck("name", 'name')->all();
+        }
 
         return view('users.edit', compact('user', 'roles'));
     }
