@@ -27,6 +27,8 @@ class SubjectsController extends Controller
                     ->where('student_class_user.user_id', '=', $request->user()->id);
             })
                 ->select("subjects.*")->paginate(25);
+        } elseif ($request->user()->hasRole('teacher')) {
+            $subjects = Subject::with('teacher', 'studentclass')->where('teacher_id', '=', $request->user()->id)->paginate(25);
         } else {
 
             $subjects = Subject::with('teacher', 'studentclass')->paginate(25);
@@ -42,8 +44,10 @@ class SubjectsController extends Controller
      */
     public function create()
     {
-        $teachers = User::pluck('name', 'id')->all();
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $teachers = User::role(['teacher', 'class-teacher'])->pluck('name', 'id')->all();
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
 
         return view('subjects.create', compact('teachers', 'studentClasses'));
     }
@@ -97,8 +101,10 @@ class SubjectsController extends Controller
     public function edit($id)
     {
         $subject = Subject::findOrFail($id);
-        $teachers = User::pluck('name', 'id')->all();
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $teachers = User::role(['teacher', 'class-teacher'])->pluck('name', 'id')->all();
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
 
         return view('subjects.edit', compact('subject', 'teachers', 'studentClasses'));
     }

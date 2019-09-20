@@ -21,9 +21,15 @@ class AttendancesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $attendances = Attendance::with('teacher', 'studentclass', 'subject', 'slot')->paginate(25);
+        if ($request->user()->hasAnyRole(['teacher', 'class-teacher'])) {
+
+            $attendances = Attendance::with('teacher', 'studentclass', 'subject', 'slot')->where('teacher_id', '=', $request->user()->id)->paginate(25);
+        } else {
+
+            $attendances = Attendance::with('teacher', 'studentclass', 'subject', 'slot')->paginate(25);
+        }
 
         return view('attendances.index', compact('attendances'));
     }
@@ -33,12 +39,33 @@ class AttendancesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
-        $teachers = User::pluck('name', 'id')->all();
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
-        $subjects = Subject::pluck('name', 'id')->all();
-        $slots = Slot::pluck('name', 'id')->all();
+        $teachers = User::role(['teacher', 'class-teacher'])->pluck('name', 'id')->all();
+
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
+
+        if ($request->user()->hasAnyRole(['teacher', 'class-teacher'])) {
+            $subjects = Subject::where('teacher_id', '=', $request->user()->id)->pluck('name', 'id')->all();
+        } else {
+            $subjects = Subject::join('users', 'users.id', '=', 'subjects.teacher_id')->selectRaw(
+                'concat(subjects.name,"(",users.name,")") as subject_user,subjects.id'
+            )->pluck('subject_user', 'id')->pluck('subject_user', 'id')->all();
+        }
+
+
+        // $slots = Slot::pluck('name', 'id')->all();
+        $slots = Slot::join(
+            'subjects',
+            function ($join) use ($request) {
+                $join->on('subjects.id', '=', 'slots.subject_id')
+                    ->where('subjects.teacher_id', '=', $request->user()->id);
+            }
+        )->selectRaw(
+            'concat(slots.name,"(",subjects.name,")") as slot_subject,slots.id'
+        )->pluck('slot_subject', 'id')->all();
 
         return view('attendances.create', compact('teachers', 'studentClasses', 'subjects', 'slots'));
     }
@@ -119,13 +146,35 @@ class AttendancesController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $attendance = Attendance::findOrFail($id);
-        $teachers = User::pluck('name', 'id')->all();
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
-        $subjects = Subject::pluck('name', 'id')->all();
-        $slots = Slot::pluck('name', 'id')->all();
+
+        $teachers = User::role(['teacher', 'class-teacher'])->pluck('name', 'id')->all();
+
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
+
+        if ($request->user()->hasAnyRole(['teacher', 'class-teacher'])) {
+            $subjects = Subject::where('teacher_id', '=', $request->user()->id)->pluck('name', 'id')->all();
+        } else {
+            $subjects = Subject::join('users', 'users.id', '=', 'subjects.teacher_id')->selectRaw(
+                'concat(subjects.name,"(",users.name,")") as subject_user,subjects.id'
+            )->pluck('subject_user', 'id')->pluck('subject_user', 'id')->all();
+        }
+
+        // $slots = Slot::pluck('name', 'id')->all();
+        $slots = Slot::join(
+            'subjects',
+            function ($join) use ($request) {
+                $join->on('subjects.id', '=', 'slots.subject_id')
+                    ->where('subjects.teacher_id', '=', $request->user()->id);
+            }
+        )->selectRaw(
+            'concat(slots.name,"(",subjects.name,")") as slot_subject,slots.id'
+        )->pluck('slot_subject', 'id')->all();
+
 
         return view('attendances.edit', compact('attendance', 'teachers', 'studentClasses', 'subjects', 'slots'));
     }

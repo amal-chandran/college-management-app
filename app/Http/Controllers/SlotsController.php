@@ -17,9 +17,24 @@ class SlotsController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $slots = Slot::with('studentclass', 'subject')->paginate(25);
+        if ($request->user()->hasAnyRole(['teacher', 'class-teacher'])) {
+            $slots = Slot::with('studentclass', 'subject')
+                ->join(
+                    'subjects',
+                    function ($join) use ($request) {
+                        $join->on('subjects.id', '=', 'slots.subject_id')
+                            ->where('subjects.teacher_id', '=', $request->user()->id);
+                    }
+                )
+                ->select('slots.*')
+                ->paginate(25);
+        } else {
+            $slots = Slot::with('studentclass', 'subject')->paginate(25);
+        }
+        // $slots = Slot::with('studentclass', 'subject')->paginate(25);
+
 
         return view('slots.index', compact('slots'));
     }
@@ -31,7 +46,9 @@ class SlotsController extends Controller
      */
     public function create()
     {
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
         $subjects = Subject::pluck('name', 'id')->all();
 
         return view('slots.create', compact('studentClasses', 'subjects'));
@@ -86,7 +103,9 @@ class SlotsController extends Controller
     public function edit($id)
     {
         $slot = Slot::findOrFail($id);
-        $studentClasses = StudentClass::pluck('batch', 'id')->all();
+        $studentClasses = StudentClass::selectRaw(
+            'concat(batch,"(",branch,")") as batch_branch,id'
+        )->pluck('batch_branch', 'id')->all();
         $subjects = Subject::pluck('name', 'id')->all();
 
         return view('slots.edit', compact('slot', 'studentClasses', 'subjects'));

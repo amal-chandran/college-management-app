@@ -15,15 +15,20 @@
                 <a href="{{ route('subjects.subject.index') }}" class="btn btn-primary" title="Show All Subject">
                     <span class="fas fa-th-list" aria-hidden="true"></span> All List
                 </a>
+                @can('create-subjects')
                 <a href="{{ route('subjects.subject.create') }}" class="btn btn-success" title="Create New Subject">
                     <span class="fas fa-plus" aria-hidden="true"></span> Create New
                 </a>
+                @endcan
             </div>
             <div class="btn-group btn-group-sm" role="group">
+                @can('edit-subjects')
                 <a href="{{ route('subjects.subject.edit', $subject->id ) }}" class="btn btn-primary"
                     title="Edit Subject">
                     <span class="fas fa-pen" aria-hidden="true"></span> Edit
                 </a>
+                @endcan
+                @can('delete-subjects')
 
                 {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                 [
@@ -33,6 +38,7 @@
                 'onclick' => 'return confirm("' . 'Click Ok to delete Subject.' . '")'
                 ])
                 !!}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

@@ -12,9 +12,11 @@
                 <span class="fas fa-th-list" aria-hidden="true"></span> All List
             </a>
 
+            @can('create-slots')
             <a href="{{ route('slots.slot.create') }}" class="btn btn-success" title="Create New Slot">
                 <span class="fas fa-plus" aria-hidden="true"></span> Create New
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body">

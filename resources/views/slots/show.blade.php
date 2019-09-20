@@ -15,15 +15,20 @@
                 <a href="{{ route('slots.slot.index') }}" class="btn btn-primary" title="Show All Slot">
                     <span class="fas fa-th-list" aria-hidden="true"></span> All List
                 </a>
+                @can('create-slots')
                 <a href="{{ route('slots.slot.create') }}" class="btn btn-success" title="Create New Slot">
                     <span class="fas fa-plus" aria-hidden="true"></span> Create New
                 </a>
+                @endcan
             </div>
             <div class="btn-group btn-group-sm" role="group">
+                @can('edit-slots')
                 <a href="{{ route('slots.slot.edit', $slot->id ) }}" class="btn btn-primary" title="Edit Slot">
                     <span class="fas fa-pen" aria-hidden="true"></span> Edit
                 </a>
+                @endcan
 
+                @can('delete-slots')
                 {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                 [
                 'type' => 'submit',
@@ -32,6 +37,7 @@
                 'onclick' => 'return confirm("' . 'Click Ok to delete Slot.' . '")'
                 ])
                 !!}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

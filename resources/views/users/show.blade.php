@@ -15,15 +15,20 @@
                 <a href="{{ route('users.user.index') }}" class="btn btn-primary" title="Show All User">
                     <span class="fas fa-th-list" aria-hidden="true"></span> All List
                 </a>
+                @can('create-slots')
                 <a href="{{ route('users.user.create') }}" class="btn btn-success" title="Create New User">
                     <span class="fas fa-plus" aria-hidden="true"></span> Create New
                 </a>
+                @endcan
             </div>
             <div class="btn-group btn-group-sm" role="group">
+                @can('edit-slots')
                 <a href="{{ route('users.user.edit', $user->id ) }}" class="btn btn-primary" title="Edit User">
                     <span class="fas fa-pen" aria-hidden="true"></span> Edit
                 </a>
+                @endcan
 
+                @can('delete-slots')
                 {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                 [
                 'type' => 'submit',
@@ -32,6 +37,7 @@
                 'onclick' => 'return confirm("' . 'Click Ok to delete User.' . '")'
                 ])
                 !!}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

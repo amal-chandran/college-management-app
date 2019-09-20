@@ -11,10 +11,11 @@
             <a href="{{ route('subjects.subject.index') }}" class="btn btn-primary" title="Show All Subject">
                 <span class="fas fa-th-list" aria-hidden="true"></span> All List
             </a>
-
+            @can('create-subjects')
             <a href="{{ route('subjects.subject.create') }}" class="btn btn-success" title="Create New Subject">
                 <span class="fas fa-plus" aria-hidden="true"></span> Create New
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body">

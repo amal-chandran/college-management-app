@@ -16,17 +16,22 @@
                     title="Show All Attendance">
                     <span class="fas fa-th-list" aria-hidden="true"></span> All List
                 </a>
+                @can('create-attendance')
                 <a href="{{ route('attendances.attendance.create') }}" class="btn btn-success"
                     title="Create New Attendance">
                     <span class="fas fa-plus" aria-hidden="true"></span> Create New
                 </a>
+                @endcan
             </div>
             <div class="btn-group btn-group-sm" role="group">
+                @can('edit-attendance')
                 <a href="{{ route('attendances.attendance.edit', $attendance->id ) }}" class="btn btn-primary"
                     title="Edit Attendance">
                     <span class="fas fa-pen" aria-hidden="true"></span> Edit
                 </a>
+                @endcan
 
+                @can('delete-attendance')
                 {!! Form::button('<span class="fas fa-trash" aria-hidden="true"></span> Delete',
                 [
                 'type' => 'submit',
@@ -35,6 +40,7 @@
                 'onclick' => 'return confirm("' . 'Click Ok to delete Attendance.' . '")'
                 ])
                 !!}
+                @endcan
             </div>
             {!! Form::close() !!}
         </div>

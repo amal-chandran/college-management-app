@@ -11,11 +11,12 @@
             <a href="{{ route('attendances.attendance.index') }}" class="btn btn-primary" title="Show All Attendance">
                 <span class="fas fa-th-list" aria-hidden="true"></span> All List
             </a>
-
+            @can('create-attendance')
             <a href="{{ route('attendances.attendance.create') }}" class="btn btn-success"
                 title="Create New Attendance">
                 <span class="fas fa-plus" aria-hidden="true"></span> Create New
             </a>
+            @endcan
         </div>
     </div>
     <div class="card-body">
