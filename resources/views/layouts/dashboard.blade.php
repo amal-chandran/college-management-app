@@ -94,11 +94,11 @@
           @auth
 
           <div class="image">
-            <img src="{{Avatar::create(Auth::getUser()->name)->toBase64()}}" class="img-circle elevation-2"
+            <img src="{{Avatar::create(Auth::user()->name)->toBase64()}}" class="img-circle elevation-2"
               alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">{{Auth::getUser()->name}}</a>
+            <a href="#" class="d-block">{{Auth::user()->name}}</a>
           </div>
           @endauth
         </div>
@@ -110,14 +110,14 @@
                 ->addItemClass("nav-link")
                 ->addItemParentClass("nav-item")
                 ->addClass("nav nav-pills nav-sidebar flex-column")
-                ->actionIf(Auth::getUser()->can('menu-dashboard'),"DashboardController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Dashboard')
-                ->actionIf(Auth::getUser()->can('menu-attendances'),"AttendancesController@index",'<i class="nav-icon fas fa-crown"></i> Attendance')
-                ->actionIf(Auth::getUser()->can('menu-slots'),"SlotsController@index",'<i class="nav-icon fas fa-crosshairs"></i> Slots')
-                ->actionIf(Auth::getUser()->can('menu-subjects'),"SubjectsController@index",'<i class="nav-icon fas fa-cubes"></i> Subjects')
-                ->actionIf(Auth::getUser()->can('menu-student-class'),"StudentClassesController@index",'<i class="nav-icon fas fa-cube"></i> Student Class')
-                ->actionIf(Auth::getUser()->can('menu-users'),"UsersController@index",'<i class="nav-icon fas fa-users"></i> Users')
-                ->actionIf(Auth::getUser()->can('menu-roles'),"RolesController@index",'<i class="nav-icon fas fa-shield-alt"></i> Roles')
-                ->actionIf(Auth::getUser()->can('menu-permissions'),"PermissionsController@index",'<i class="nav-icon fas fa-shield-alt"></i> Permissions')
+                ->actionIf(Auth::user()->can('menu-dashboard'),"DashboardController@index",'<i class="nav-icon fas fa-tachometer-alt"></i> Dashboard')
+                ->actionIf(Auth::user()->can('menu-attendances'),"AttendancesController@index",'<i class="nav-icon fas fa-crown"></i> Attendance')
+                ->actionIf(Auth::user()->can('menu-slots'),"SlotsController@index",'<i class="nav-icon fas fa-crosshairs"></i> Slots')
+                ->actionIf(Auth::user()->can('menu-subjects'),"SubjectsController@index",'<i class="nav-icon fas fa-cubes"></i> Subjects')
+                ->actionIf(Auth::user()->can('menu-student-class'),"StudentClassesController@index",'<i class="nav-icon fas fa-cube"></i> Student Class')
+                ->actionIf(Auth::user()->can('menu-users'),"UsersController@index",'<i class="nav-icon fas fa-users"></i> Users')
+                ->actionIf(Auth::user()->can('menu-roles'),"RolesController@index",'<i class="nav-icon fas fa-shield-alt"></i> Roles')
+                ->actionIf(Auth::user()->can('menu-permissions'),"PermissionsController@index",'<i class="nav-icon fas fa-shield-alt"></i> Permissions')
                 }}
         </nav>
         <!-- /.sidebar-menu -->
