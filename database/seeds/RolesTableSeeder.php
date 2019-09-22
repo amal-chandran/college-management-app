@@ -40,10 +40,17 @@ class RolesTableSeeder extends Seeder
             ),
             3 => 
             array (
-                'id' => 5,
+                'id' => 6,
+                'name' => 'head-department',
+                'created_at' => '2019-11-16 10:00:47',
+                'updated_at' => '2019-11-16 10:00:47',
+            ),
+            4 => 
+            array (
+                'id' => 7,
                 'name' => 'class-teacher',
-                'created_at' => '2019-11-14 01:05:06',
-                'updated_at' => '2019-11-14 01:05:06',
+                'created_at' => '2019-11-16 10:09:37',
+                'updated_at' => '2019-11-16 10:09:37',
             ),
         ));
         
