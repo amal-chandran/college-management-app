@@ -23,8 +23,9 @@ Or
 - Clone or Download Repository
 - Open folder & install composer dependancys
 - Serve app in 8080
-- Create a database for the app
+- Create a database for the app with name: attendance
 - Open http://localhost:8080/install
+- Check .env file for DB_DATABASE,DB_USERNAME
 - Follow the installer and Select Form Wizard Setup
 - Provide app name and database details
 - Open http://localhost:8080
@@ -46,9 +47,7 @@ cd college-management-app
 
 composer install
 
-cp .env.example .env
-
-php artisan key:generate
+composer run Install-App
 
 php artisan serve --port 8080
 
