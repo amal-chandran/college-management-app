@@ -167,5 +167,4 @@ class RolesController extends Controller
 
         return $data;
     }
-
 }

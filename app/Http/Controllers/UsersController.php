@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Http\Request;
 use Exception;
+use Spatie\Permission\Models\Role;
 
 class UsersController extends Controller
 {
@@ -15,7 +16,7 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
         $users = User::paginate(25);
 
@@ -27,11 +28,12 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function create()
+    public function create(Request $request)
     {
 
+        $roles = Role::pluck("name", 'name')->all();
 
-        return view('users.create');
+        return view('users.create', compact('roles'));
     }
 
     /**
@@ -47,7 +49,9 @@ class UsersController extends Controller
         try {
             $data = $this->getData($request);
 
-            User::create($data);
+            $createdUser = User::create($data);
+
+            $createdUser->syncRoles($request['roles']);
 
             return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully added.');
@@ -79,12 +83,18 @@ class UsersController extends Controller
      *
      * @return Illuminate\View\View
      */
-    public function edit($id)
+    public function edit(Request $request, $id)
     {
         $user = User::findOrFail($id);
+        $user = User::join('user_has_roles', 'user_has_roles.user_id', '=', 'users.id')
+            ->join('roles', 'user_has_roles.role_id', '=', 'roles.id')
+            ->where('users.id', '=', $id)
+            ->select('users.*', 'roles.name as roles')->first();
+
+        $roles = Role::pluck("name", 'name')->all();
 
 
-        return view('users.edit', compact('user'));
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -102,7 +112,13 @@ class UsersController extends Controller
             $data = $this->getData($request);
 
             $user = User::findOrFail($id);
+
+            if (empty($data['password'])) {
+                $data = collect($data)->only('name', 'email')->toArray();
+            }
+
             $user->update($data);
+            $user->syncRoles($request['roles']);
 
             return redirect()->route('users.user.index')
                 ->with('success_message', 'User was successfully updated.');
@@ -146,7 +162,8 @@ class UsersController extends Controller
         $rules = [
             'name' => 'required|string|min:1|max:191',
             'email' => 'required|string|email|min:1|max:191',
-            'password' => 'required|min:8|max:100',
+            'password' => 'requiredIf:password-update,update|min:8|max:100',
+            'roles' => 'required',
         ];
 
 
@@ -166,5 +183,4 @@ class UsersController extends Controller
 
         return $data;
     }
-
 }
