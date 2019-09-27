@@ -40,13 +40,26 @@ class AttendancesDataTable extends DataTable
         }
 
         $studentsList = $studentsList->map(function ($student) use ($dateHeads) {
-            $studentData = collect(['id' => $student->id, 'name' => $student->name]);
+            $studentDataRow = collect(['id' => $student->id, 'name' => $student->name]);
+            $studentDataAttendance = collect();
+
+            $presentDays = 0;
+            $totalDays = count($dateHeads);
+
+
             foreach ($dateHeads as $dateHead) {
-                $studentData->put($this->getMarkedAtHuman($dateHead->marked_at), Attendee::where('attendance_id', '=', $dateHead->id)->where('student_id', '=', $student->id)->pluck('status')->get(0));
+                $status = Attendee::where('attendance_id', '=', $dateHead->id)->where('student_id', '=', $student->id)->pluck('status')->get(0);
+                if ($status == "present") {
+                    $presentDays++;
+                }
+                $studentDataAttendance->put($this->getMarkedAtHuman($dateHead->marked_at), $status);
             }
+            $attendancePercentage = ($presentDays / $totalDays) * 100;
 
+            $studentDataRow->put('percentage', $attendancePercentage);
+            $studentDataRow = $studentDataRow->merge($studentDataAttendance);
 
-            return $studentData;
+            return $studentDataRow;
         });
 
         return $this->applyScopes($studentsList);
@@ -83,7 +96,7 @@ class AttendancesDataTable extends DataTable
      */
     protected function getColumns()
     {
-        $heads = collect(['id', 'name']);
+        $heads = collect(['id', 'name', 'percentage']);
         $dateHeads = Attendance::where([['student_class_id', '=', $this->student_class_id], ['subject_id', '=', $this->subject_id],])->pluck("marked_at")->all();
 
         $dateHeads = collect($dateHeads)->map(function ($dateHead) {
