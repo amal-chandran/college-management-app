@@ -8,5 +8,10 @@
         "model-name": "Permission",
         "resource-file": "permissions.json",
         "table-name": "permissions"
+    },
+    {
+        "model-name": "RoleHasPermission",
+        "resource-file": "role_has_permissions.json",
+        "table-name": "role_has_permissions"
     }
 ]

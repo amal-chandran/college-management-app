@@ -78,3 +78,24 @@ Route::middleware('auth')->group(function () {
                ->name('permissions.permission.destroy')->where('id', '[0-9]+');
      });
 });
+
+Route::group([
+     'prefix' => 'role_has_permissions',
+], function () {
+     Route::get('/', 'RoleHasPermissionsController@index')
+          ->name('role_has_permissions.role_has_permission.index');
+     Route::get('/create', 'RoleHasPermissionsController@create')
+          ->name('role_has_permissions.role_has_permission.create');
+     Route::get('/show/{permission}/{role}', 'RoleHasPermissionsController@show')
+          ->name('role_has_permissions.role_has_permission.show')->where('id', '[0-9]+');
+     Route::get('/manage/{role}', 'RoleHasPermissionsController@manage')
+          ->name('role_has_permissions.role_has_permission.manage')->where('id', '[0-9]+');
+     Route::get('/{permission}/{role}/edit', 'RoleHasPermissionsController@edit')
+          ->name('role_has_permissions.role_has_permission.edit')->where('id', '[0-9]+');
+     Route::post('/', 'RoleHasPermissionsController@store')
+          ->name('role_has_permissions.role_has_permission.store');
+     Route::put('role_has_permission/{permission}/{role}', 'RoleHasPermissionsController@update')
+          ->name('role_has_permissions.role_has_permission.update')->where('id', '[0-9]+');
+     Route::delete('/role_has_permission/{permission}/{role}', 'RoleHasPermissionsController@destroy')
+          ->name('role_has_permissions.role_has_permission.destroy')->where('id', '[0-9]+');
+});
