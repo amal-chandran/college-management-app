@@ -1,4 +1,4 @@
-@extends('layouts.main') 
+@extends('layouts.main')
 @section('content')
 <div class="container">
 
@@ -33,9 +33,9 @@
                                         <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
                                     </label>
                     </div>
-                    <a class="btn btn-link" href="{{ route('password.request') }}">
+                    {{-- <a class="btn btn-link" href="{{ route('password.request') }}">
                             Forgot Your Password?
-                        </a>
+                        </a> --}}
                 </div>
 
                 <div class="form-group mb-0">

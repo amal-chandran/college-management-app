@@ -135,10 +135,10 @@
               <h1 class="m-0 text-dark">@yield("name")</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
-              <ol class="breadcrumb float-sm-right">
+              {{-- <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                 <li class="breadcrumb-item active">Starter Page</li>
-              </ol>
+              </ol> --}}
             </div><!-- /.col -->
           </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -172,8 +172,7 @@
         <i class="fa text-info fa-code mr-2"></i> with <i class="fa text-danger fa-heart ml-2"></i>
       </div>
       <!-- Default to the left -->
-      <strong>Copyright &copy; 2014-2019 <a href="#">{{ config('app.name', 'Basic') }}</a>.</strong> All rights
-      reserved.
+      <strong><a href="#">{{ config('app.name', 'Basic') }}</a> a Laravel Web App</strong>
     </footer>
   </div>
 
