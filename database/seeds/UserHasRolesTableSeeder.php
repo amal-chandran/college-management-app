@@ -12,38 +12,36 @@ class UserHasRolesTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('user_has_roles')->delete();
-        
-        \DB::table('user_has_roles')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('user_has_roles')->insert(array(
+            0 =>
+            array(
                 'role_id' => 1,
                 'user_id' => 11,
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'role_id' => 3,
                 'user_id' => 9,
             ),
-            2 => 
-            array (
+            2 =>
+            array(
                 'role_id' => 4,
                 'user_id' => 1,
             ),
-            3 => 
-            array (
+            3 =>
+            array(
                 'role_id' => 6,
                 'user_id' => 14,
             ),
-            4 => 
-            array (
+            4 =>
+            array(
                 'role_id' => 7,
                 'user_id' => 13,
             ),
         ));
-        
-        
     }
 }

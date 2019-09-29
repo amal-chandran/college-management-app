@@ -1,36 +1,41 @@
 [
-    {
-        "model-name": "Role",
-        "resource-file": "roles.json",
-        "table-name": "roles"
-    },
-    {
-        "model-name": "Permission",
-        "resource-file": "permissions.json",
-        "table-name": "permissions"
-    },
-    {
-        "model-name": "StudentClass",
-        "resource-file": "student_classes.json"
-    },
-    {
-        "model-name": "Subject",
-        "resource-file": "subjects.json"
-    },
-    {
-        "model-name": "Attendee",
-        "resource-file": "attendees.json"
-    },
-    {
-        "model-name": "Slot",
-        "resource-file": "slots.json"
-    },
-    {
-        "model-name": "Attendance",
-        "resource-file": "attendances.json"
-    },
-    {
-        "model-name": "StudentClassUser",
-        "resource-file": "student_class_users.json"
-    }
+  {
+    "model-name": "Role",
+    "resource-file": "roles.json",
+    "table-name": "roles"
+  },
+  {
+    "model-name": "Permission",
+    "resource-file": "permissions.json",
+    "table-name": "permissions"
+  },
+  {
+    "model-name": "StudentClass",
+    "resource-file": "student_classes.json"
+  },
+  {
+    "model-name": "Subject",
+    "resource-file": "subjects.json"
+  },
+  {
+    "model-name": "Attendee",
+    "resource-file": "attendees.json"
+  },
+  {
+    "model-name": "Slot",
+    "resource-file": "slots.json"
+  },
+  {
+    "model-name": "Attendance",
+    "resource-file": "attendances.json"
+  },
+  {
+    "model-name": "StudentClassUser",
+    "resource-file": "student_class_users.json"
+  },
+  {
+    "model-name": "RoleHasPermission",
+    "resource-file": "role_has_permissions.json",
+    "table-name": "role_has_permissions"
+  }
 ]

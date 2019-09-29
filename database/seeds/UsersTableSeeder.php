@@ -12,13 +12,13 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        
+
 
         \DB::table('users')->delete();
-        
-        \DB::table('users')->insert(array (
-            0 => 
-            array (
+
+        \DB::table('users')->insert(array(
+            0 =>
+            array(
                 'id' => 1,
                 'name' => 'Admin',
                 'email' => 'admin@localhost.com',
@@ -27,8 +27,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2019-11-13 05:32:01',
                 'updated_at' => '2019-11-16 12:50:51',
             ),
-            1 => 
-            array (
+            1 =>
+            array(
                 'id' => 9,
                 'name' => 'Teacher',
                 'email' => 'teacher@localhost.com',
@@ -37,8 +37,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2019-11-15 04:12:59',
                 'updated_at' => '2019-11-16 12:51:02',
             ),
-            2 => 
-            array (
+            2 =>
+            array(
                 'id' => 11,
                 'name' => 'Student',
                 'email' => 'student@localhost.com',
@@ -47,8 +47,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2019-11-15 04:14:27',
                 'updated_at' => '2019-11-16 12:51:18',
             ),
-            3 => 
-            array (
+            3 =>
+            array(
                 'id' => 13,
                 'name' => 'Class Teacher',
                 'email' => 'classteacher@localhost.com',
@@ -57,8 +57,8 @@ class UsersTableSeeder extends Seeder
                 'created_at' => '2019-11-15 04:18:05',
                 'updated_at' => '2019-11-16 12:51:29',
             ),
-            4 => 
-            array (
+            4 =>
+            array(
                 'id' => 14,
                 'name' => 'HOD',
                 'email' => 'hod@localhost.com',
@@ -68,7 +68,5 @@ class UsersTableSeeder extends Seeder
                 'updated_at' => '2019-11-16 12:51:38',
             ),
         ));
-        
-        
     }
 }
