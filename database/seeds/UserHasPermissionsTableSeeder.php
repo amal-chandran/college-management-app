@@ -12,8 +12,11 @@ class UserHasPermissionsTableSeeder extends Seeder
      */
     public function run()
     {
-
+        
 
         \DB::table('user_has_permissions')->delete();
+        
+        
+        
     }
 }
