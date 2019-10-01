@@ -12,6 +12,9 @@ use Illuminate\Http\Request;
 use Datatables;
 use Exception;
 use App\DataTables\AttendancesDataTable;
+use Illuminate\Support\Facades\Auth;
+use App\Attendee;
+// use Yajra\DataTables\Datatables;
 
 class AttendancesController extends Controller
 {
@@ -98,18 +101,65 @@ class AttendancesController extends Controller
         }
     }
 
-    public function report(Request $request, AttendancesDataTable $dataTable, $student_class_id = null, $subject_id = null)
+    public function report(Request $request, Datatables $dataTable,  $student_class_id = null, $subject_id = null)
     {
-        // if($request->ajax()){
+        if ($request->ajax()) {
 
-        //     return Datatables::of(User::query())->make(true);
-        // }
+            $dateHeads = Attendance::where([['student_class_id', '=', $student_class_id], ['subject_id', '=', $subject_id],])->get();
+
+            if (Auth::user()->hasRole('student')) {
+                $studentsList = collect([Auth::user()]);
+            } else {
+                $students = StudentClass::find($student_class_id);
+                $studentsList = $students->students;
+            }
+
+            $studentsList = $studentsList->map(function ($student) use ($dateHeads) {
+                $studentDataRow = collect(['id' => $student->id, 'name' => $student->name]);
+                $studentDataAttendance = collect();
+
+                $presentDays = 0;
+                $totalDays = count($dateHeads);
+
+
+                foreach ($dateHeads as $dateHead) {
+                    $status = Attendee::where('attendance_id', '=', $dateHead->id)->where('student_id', '=', $student->id)->pluck('status')->get(0);
+                    if ($status == "present") {
+                        $presentDays++;
+                    }
+                    $studentDataAttendance->put($this->getMarkedAtHuman($dateHead->marked_at), $status);
+                }
+                $attendancePercentage = ($presentDays / $totalDays) * 100;
+
+                $studentDataRow->put('percentage', $attendancePercentage);
+                $studentDataRow = $studentDataRow->merge($studentDataAttendance);
+
+                return $studentDataRow;
+            });
+
+            return  Datatables::collection(collect($studentsList))->make(true);
+        }
+
+        $heads = collect(['id', 'name', 'percentage']);
+        $dateHeads = Attendance::where([['student_class_id', '=', $student_class_id], ['subject_id', '=', $subject_id],])->pluck("marked_at")->all();
+
+        $dateHeads = collect($dateHeads)->map(function ($dateHead) {
+            return $this->getMarkedAtHuman($dateHead);
+        });
+        $heads = $heads->concat($dateHeads);
+        $studentClass = StudentClass::find($student_class_id);
+        $subject = Subject::find($subject_id);
         // $student_class_id = 2;
 
-        return $dataTable->with([
-            'subject_id' => $subject_id,
-            'student_class_id' => $student_class_id
-        ])->render("attendances.report");
+        // return $dataTable->with([
+        //     'subject_id' => $subject_id,
+        //     'student_class_id' => $student_class_id
+        // ])->
+        return view("attendances.report")->with([
+            'heads' => $heads->toArray(),
+            'studentClass' => $studentClass,
+            "subject" => $subject
+        ]);
     }
 
     /**
@@ -266,5 +316,9 @@ class AttendancesController extends Controller
         $data = $request->only(['teacher_id', 'student_class_id', 'subject_id', 'slot_id', 'marked_at']);
 
         return $data;
+    }
+    public function getMarkedAtHuman($value)
+    {
+        return \DateTime::createFromFormat('Y-m-d h:i:s A', $value)->format('d_M');
     }
 }

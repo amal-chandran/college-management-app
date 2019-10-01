@@ -15,6 +15,7 @@
   <link href="{{ asset('css/adminlte.min.css') }}" rel="stylesheet">
   <link href="{{ asset('css/daterangepicker.css') }}" rel="stylesheet">
   <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet">
+  <link href="{{ asset('css/tableexport.min.css') }}" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet" />
 
 </head>
@@ -185,6 +186,10 @@
   <script src="{{ asset('js/moment.min.js') }}"></script>
   <script src="{{ asset('js/daterangepicker.js') }}"></script>
   <script src="{{ asset('js/datatables.min.js') }}"></script>
+  <script src="{{ asset('js/Blob.min.js') }}"></script>
+  <script src="{{ asset('js/FileSaver.min.js') }}"></script>
+  <script src="{{ asset('js/xlsx.full.min.js') }}"></script>
+  <script src="{{ asset('js/tableexport.min.js') }}"></script>
   <script src="{{ asset('vendor/datatables/buttons.server-side.js') }}"></script>
 
   <script>
