@@ -198,7 +198,7 @@
           singleDatePicker: true,
           showDropdowns: true,
           locale: {
-            format: 'Y-m-d'
+            format: 'Y-MM-DD'
           }
         });
 

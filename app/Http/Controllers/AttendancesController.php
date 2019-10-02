@@ -162,6 +162,53 @@ class AttendancesController extends Controller
         ]);
     }
 
+    public function report_class_day(Request $request, $student_class_id = null, $attendance_date = null)
+    {
+        if ($attendance_date == null) {
+            $attendance_date = $request->input('attendance_date', date('Y-m-d'));
+        }
+        // return $attendance_date;
+        if ($request->ajax()) {
+            $attendanceList = Attendance::where('student_class_id', '=', $student_class_id)->whereDate('marked_at', $attendance_date)->get();
+
+            $students = StudentClass::find($student_class_id);
+            $studentsList = $students->students;
+
+
+            $studentsList = $studentsList->map(function ($student) use ($attendanceList) {
+                $studentDataRow = collect(['id' => $student->id, 'name' => $student->name]);
+                $studentDataAttendance = collect();
+
+
+                foreach ($attendanceList as $attendance) {
+                    $status = Attendee::where('attendance_id', '=', $attendance->id)->where('student_id', '=', $student->id)->pluck('status')->get(0);
+                    $studentDataAttendance->put($attendance->slot->name, $status);
+                }
+
+                $studentDataRow = $studentDataRow->merge($studentDataAttendance);
+
+                return $studentDataRow;
+            });
+
+            return  Datatables::collection(collect($studentsList))->make(true);
+        }
+
+        $heads = collect(['id', 'name']);
+        $attendanceList = Attendance::where('student_class_id', '=', $student_class_id)->whereDate('marked_at', $attendance_date)->get();
+
+        $attendanceList = collect($attendanceList)->map(function ($attendance) {
+            return $attendance->slot->name;
+        });
+        $heads = $heads->concat($attendanceList);
+        $studentClass = StudentClass::find($student_class_id);
+
+        return view("attendances.report_class_day")->with([
+            'heads' => $heads->toArray(),
+            'studentClass' => $studentClass,
+            'attendance_date' => $attendance_date
+        ]);
+    }
+
     /**
      * Display the specified attendance.
      *
