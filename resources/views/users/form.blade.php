@@ -36,6 +36,19 @@
         </label>
     </div>
 </div>
+@push('scripts')
+<script>
+    $(document).ready(function () {
+        var state=Boolean($('#password-update').attr('checked'));
+        $('#password').attr('disabled',!state);
+
+        $('#password-update').on('click',function () {
+            var state=Boolean($('#password').attr('disabled'));
+            $('#password').attr('disabled',!state);
+        });
+    });
+</script>
+@endpush
 @else
 {!! Form::hidden('password-update','update', [ 'placeholder' => 'Enter password
 here...','id'=>'password-update' ])
@@ -57,16 +70,3 @@ here...','id'=>'password-update' ])
         {!! $errors->first('roles', '<p class="help-block">:message</p>') !!}
     </div>
 </div>
-@push('scripts')
-<script>
-    $(document).ready(function () {
-        var state=Boolean($('#password-update').attr('checked'));
-        $('#password').attr('disabled',!state);
-
-        $('#password-update').on('click',function () {
-            var state=Boolean($('#password').attr('disabled'));
-            $('#password').attr('disabled',!state);
-        });
-    });
-</script>
-@endpush
