@@ -130,6 +130,8 @@ Route::middleware('auth')->group(function () {
                ->name('attendances.attendance.report')->where('id', '[0-9]+');
           Route::get('/report_class_day/{student_class_id}/date/{attendance_date?}', 'AttendancesController@report_class_day')
                ->name('attendances.attendance.report_class_day')->where('id', '[0-9]+');
+          Route::get('/report_class_complete/{student_class_id}/date/{attendance_ranges?}', 'AttendancesController@report_class_complete')
+               ->name('attendances.attendance.report_class_complete')->where('id', '[0-9]+');
 
           Route::get('/{attendance}/edit', 'AttendancesController@edit')
                ->name('attendances.attendance.edit')->where('id', '[0-9]+');

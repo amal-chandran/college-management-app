@@ -201,7 +201,13 @@
             format: 'Y-MM-DD'
           }
         });
-
+        $('.DateRangePicker').daterangepicker({
+          showDropdowns: true,
+          locale: {
+            format: 'Y-MM-DD',
+            separator:" to "
+          }
+        });
         $('.datetimepicker').daterangepicker({
           singleDatePicker: true,
           showDropdowns: true,
