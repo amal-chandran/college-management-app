@@ -101,7 +101,7 @@ class AttendancesController extends Controller
         }
     }
 
-    public function report(Request $request, Datatables $dataTable,  $student_class_id = null, $subject_id = null)
+    public function report(Request $request,   $student_class_id = null, $subject_id = null)
     {
         if ($request->ajax()) {
 
@@ -129,7 +129,7 @@ class AttendancesController extends Controller
                     }
                     $studentDataAttendance->put($this->getMarkedAtHuman($dateHead->marked_at), $status);
                 }
-                $attendancePercentage = ($presentDays / $totalDays) * 100;
+                $attendancePercentage = round(($presentDays / $totalDays) * 100, 2);
 
                 $studentDataRow->put('percentage', $attendancePercentage);
                 $studentDataRow = $studentDataRow->merge($studentDataAttendance);
@@ -149,12 +149,7 @@ class AttendancesController extends Controller
         $heads = $heads->concat($dateHeads);
         $studentClass = StudentClass::find($student_class_id);
         $subject = Subject::find($subject_id);
-        // $student_class_id = 2;
 
-        // return $dataTable->with([
-        //     'subject_id' => $subject_id,
-        //     'student_class_id' => $student_class_id
-        // ])->
         return view("attendances.report")->with([
             'heads' => $heads->toArray(),
             'studentClass' => $studentClass,
@@ -167,7 +162,7 @@ class AttendancesController extends Controller
         if ($attendance_date == null) {
             $attendance_date = $request->input('attendance_date', date('Y-m-d'));
         }
-        // return $attendance_date;
+
         if ($request->ajax()) {
             $attendanceList = Attendance::where('student_class_id', '=', $student_class_id)->whereDate('marked_at', $attendance_date)->get();
 
@@ -274,7 +269,7 @@ class AttendancesController extends Controller
                     ->get();
 
                 foreach ($subjects as $subject_attendance) {
-                    $percentageDays = $subject_attendance->attendance_count / $subjectsTotal[$subject_attendance->name] * 100;
+                    $percentageDays = round($subject_attendance->attendance_count / $subjectsTotal[$subject_attendance->name] * 100, 2);
                     $checkState = $percentageDays > 75 ? "E" : "NE";
                     $studentDataAttendance->put($subject_attendance->name, "${percentageDays} ($checkState)");
                 }
