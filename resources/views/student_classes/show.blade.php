@@ -12,10 +12,18 @@
             'route' => ['student_classes.student_class.destroy', $studentClass->id]
             ]) !!}
             <div class="btn-group mr-1 btn-group-sm" role="group">
+                @can('student-class-day-report')
                 <a href="{{ route('attendances.attendance.report_class_day',[$studentClass->id]) }}"
-                    class="btn btn-primary" title="Show All Student Class">
+                    class="btn btn-sm btn-info" title="Show All Student Class">
                     <span class="fas fa-clock" aria-hidden="true"></span> Day Report
                 </a>
+                @endcan
+                @can('student-class-full-report')
+                <a href="{{ route('attendances.attendance.report_class_complete',[$studentClass->id]) }}"
+                    class="btn btn-sm mr-2 btn-warning" title="Show All Student Class">
+                    <span class="fas fa-clock" aria-hidden="true"></span> Full Report
+                </a>
+                @endcan
             </div>
             <div class="btn-group mr-1 btn-group-sm" role="group">
                 <a href="{{ route('student_classes.student_class.index') }}" class="btn btn-primary"

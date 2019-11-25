@@ -24,20 +24,25 @@ class UserHasRolesTableSeeder extends Seeder
             ),
             1 => 
             array (
+                'role_id' => 1,
+                'user_id' => 17,
+            ),
+            2 => 
+            array (
                 'role_id' => 3,
                 'user_id' => 9,
             ),
-            2 => 
+            3 => 
             array (
                 'role_id' => 4,
                 'user_id' => 1,
             ),
-            3 => 
+            4 => 
             array (
                 'role_id' => 6,
                 'user_id' => 14,
             ),
-            4 => 
+            5 => 
             array (
                 'role_id' => 7,
                 'user_id' => 13,

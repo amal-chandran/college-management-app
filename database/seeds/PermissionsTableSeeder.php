@@ -360,6 +360,20 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2019-11-24 18:19:07',
                 'updated_at' => '2019-11-24 18:19:07',
             ),
+            49 => 
+            array (
+                'id' => 50,
+                'name' => 'student-class-day-report',
+                'created_at' => '2019-11-25 19:28:59',
+                'updated_at' => '2019-11-25 19:28:59',
+            ),
+            50 => 
+            array (
+                'id' => 51,
+                'name' => 'student-class-full-report',
+                'created_at' => '2019-11-25 19:29:10',
+                'updated_at' => '2019-11-25 19:29:10',
+            ),
         ));
         
         

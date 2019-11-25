@@ -101,7 +101,7 @@ class AttendancesController extends Controller
         }
     }
 
-    public function report(Request $request, Datatables $dataTable,  $student_class_id = null, $subject_id = null)
+    public function report(Request $request,   $student_class_id, $subject_id)
     {
         if ($request->ajax()) {
 
@@ -129,7 +129,7 @@ class AttendancesController extends Controller
                     }
                     $studentDataAttendance->put($this->getMarkedAtHuman($dateHead->marked_at), $status);
                 }
-                $attendancePercentage = ($presentDays / $totalDays) * 100;
+                $attendancePercentage = round(($presentDays / $totalDays) * 100, 2);
 
                 $studentDataRow->put('percentage', $attendancePercentage);
                 $studentDataRow = $studentDataRow->merge($studentDataAttendance);
@@ -149,12 +149,7 @@ class AttendancesController extends Controller
         $heads = $heads->concat($dateHeads);
         $studentClass = StudentClass::find($student_class_id);
         $subject = Subject::find($subject_id);
-        // $student_class_id = 2;
 
-        // return $dataTable->with([
-        //     'subject_id' => $subject_id,
-        //     'student_class_id' => $student_class_id
-        // ])->
         return view("attendances.report")->with([
             'heads' => $heads->toArray(),
             'studentClass' => $studentClass,
@@ -162,12 +157,10 @@ class AttendancesController extends Controller
         ]);
     }
 
-    public function report_class_day(Request $request, $student_class_id = null, $attendance_date = null)
+    public function report_class_day(Request $request, $student_class_id)
     {
-        if ($attendance_date == null) {
-            $attendance_date = $request->input('attendance_date', date('Y-m-d'));
-        }
-        // return $attendance_date;
+        $attendance_date = $request->input('attendance_date', date('Y-m-d'));
+
         if ($request->ajax()) {
             $attendanceList = Attendance::where('student_class_id', '=', $student_class_id)->whereDate('marked_at', $attendance_date)->get();
 
@@ -187,7 +180,17 @@ class AttendancesController extends Controller
 
                 $studentDataRow = $studentDataRow->merge($studentDataAttendance);
 
+                if (!$studentDataAttendance->isEmpty()) {
+                    $studentDataRow = $studentDataRow->merge($studentDataAttendance);
+                } else {
+                    $studentDataRow = collect();
+                }
+
                 return $studentDataRow;
+            });
+
+            $studentsList = $studentsList->filter(function ($val, $key) {
+                return !$val->isEmpty();
             });
 
             return  Datatables::collection(collect($studentsList))->make(true);
@@ -210,9 +213,10 @@ class AttendancesController extends Controller
     }
 
 
-    public function report_class_complete(Request $request, $student_class_id = null, $attendance_ranges = null)
+    public function report_class_complete(Request $request, $student_class_id)
     {
-        $availableDates =    Attendance::selectRaw("DATE_FORMAT(MAX(marked_at),'%Y-%m-%d') as maxDate,DATE_FORMAT(MIN(marked_at),'%Y-%m-%d') as minDate")->get();
+
+        $availableDates = Attendance::selectRaw("DATE_FORMAT(MAX(marked_at),'%Y-%m-%d') as maxDate,DATE_FORMAT(MIN(marked_at),'%Y-%m-%d') as minDate")->get();
 
         $minMaxDate = array('min' => date('Y-m-d'), "max" => date('Y-m-d', strtotime('-1 month')));
 
@@ -220,6 +224,8 @@ class AttendancesController extends Controller
             $availableDates = $availableDates[0];
             $minMaxDate = array('min' => $availableDates['minDate'], "max" => $availableDates['maxDate']);
         }
+
+        $attendance_ranges = $request->input('attendance_ranges', null);
 
         if ($attendance_ranges == null) {
             $start_date = trim($minMaxDate['min']);
@@ -274,21 +280,37 @@ class AttendancesController extends Controller
                     ->get();
 
                 foreach ($subjects as $subject_attendance) {
-                    $percentageDays = $subject_attendance->attendance_count / $subjectsTotal[$subject_attendance->name] * 100;
+                    $percentageDays = round($subject_attendance->attendance_count / $subjectsTotal[$subject_attendance->name] * 100, 2);
                     $checkState = $percentageDays > 75 ? "E" : "NE";
                     $studentDataAttendance->put($subject_attendance->name, "${percentageDays} ($checkState)");
                 }
 
-                $studentDataRow = $studentDataRow->merge($studentDataAttendance);
+                if (!$studentDataAttendance->isEmpty()) {
+                    $studentDataRow = $studentDataRow->merge($studentDataAttendance);
+                } else {
+                    $studentDataRow = collect();
+                }
 
                 return $studentDataRow;
             });
-
+            $studentsList = $studentsList->filter(function ($val, $key) {
+                return !$val->isEmpty();
+            });
             return  Datatables::collection(collect($studentsList))->make(true);
         }
 
         $heads = collect(['id', 'name']);
-        $subjectsClass = Subject::where('subjects.student_class_id', '=', $student_class_id)->get();
+        $subjectsClass = Subject::join(
+            'attendances',
+            function ($join) use ($start_date, $end_date) {
+                $join->on('subjects.id', '=', 'attendances.subject_id')
+                    ->whereRaw("DATE_FORMAT(`marked_at`,'%Y-%m-%d') BETWEEN ? AND ?", [$start_date, $end_date]);
+            }
+        )
+            ->where('subjects.student_class_id', '=', $student_class_id)
+            ->groupBy('subjects.name')
+            ->selectRaw('COUNT(`subjects`.`id`) as `attendance_count`,`subjects`.`name`')
+            ->get();
 
         $subjectsClass = collect($subjectsClass)->map(function ($subjectClass) {
             return $subjectClass->name;
