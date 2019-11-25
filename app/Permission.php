@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Models\Permission as BaseModel;
 
 class Permission extends BaseModel

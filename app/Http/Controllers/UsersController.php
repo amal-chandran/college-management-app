@@ -40,6 +40,7 @@ class UsersController extends Controller
             $roles = Role::pluck("name", 'name')->all();
         }
 
+        $roles = Role::pluck("name", 'name')->all();
 
         return view('users.create', compact('roles'));
     }
@@ -122,6 +123,11 @@ class UsersController extends Controller
             $data = $this->getData($request);
 
             $user = User::findOrFail($id);
+
+            if (empty($data['password'])) {
+                $data = collect($data)->only('name', 'email')->toArray();
+            }
+
             $user->update($data);
             $user->syncRoles($request['roles']);
 
@@ -167,7 +173,7 @@ class UsersController extends Controller
         $rules = [
             'name' => 'required|string|min:1|max:191',
             'email' => 'required|string|email|min:1|max:191',
-            'password' => 'required|min:8|max:100',
+            'password' => 'requiredIf:password-update,update|min:8|max:100',
             'roles' => 'required',
         ];
 

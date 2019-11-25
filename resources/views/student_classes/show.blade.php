@@ -12,6 +12,12 @@
             'route' => ['student_classes.student_class.destroy', $studentClass->id]
             ]) !!}
             <div class="btn-group mr-1 btn-group-sm" role="group">
+                <a href="{{ route('attendances.attendance.report_class_day',[$studentClass->id]) }}"
+                    class="btn btn-primary" title="Show All Student Class">
+                    <span class="fas fa-clock" aria-hidden="true"></span> Day Report
+                </a>
+            </div>
+            <div class="btn-group mr-1 btn-group-sm" role="group">
                 <a href="{{ route('student_classes.student_class.index') }}" class="btn btn-primary"
                     title="Show All Student Class">
                     <span class="fas fa-th-list" aria-hidden="true"></span> All List
@@ -54,10 +60,9 @@
         <div class="card">
             <div class="card-header">
                 Class Details
+
             </div>
             <div class="card-body">
-
-
                 <dl class="dl-horizontal">
                     <dt>Batch</dt>
                     <dd>{{ $studentClass->batch }}</dd>

@@ -27,11 +27,10 @@
         'class' => 'form-horizontal',
         'name' => 'create_user_form',
         'id' => 'create_user_form',
-
         ])
         !!}
 
-        @include ('users.form', ['user' => null,])
+        @include ('users.form', ['user' => null,'edit'=>false])
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 {!! Form::submit('Add', ['class' => 'btn btn-primary']) !!}

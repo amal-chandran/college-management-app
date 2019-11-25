@@ -125,8 +125,14 @@ Route::middleware('auth')->group(function () {
                ->name('attendances.attendance.create');
           Route::get('/show/{attendance}', 'AttendancesController@show')
                ->name('attendances.attendance.show')->where('id', '[0-9]+');
+
           Route::get('/report/{student_class_id?}/subject/{subject_id}', 'AttendancesController@report')
                ->name('attendances.attendance.report')->where('id', '[0-9]+');
+          Route::get('/report_class_day/{student_class_id}/date/{attendance_date?}', 'AttendancesController@report_class_day')
+               ->name('attendances.attendance.report_class_day')->where('id', '[0-9]+');
+          Route::get('/report_class_complete/{student_class_id}/date/{attendance_ranges?}', 'AttendancesController@report_class_complete')
+               ->name('attendances.attendance.report_class_complete')->where('id', '[0-9]+');
+
           Route::get('/{attendance}/edit', 'AttendancesController@edit')
                ->name('attendances.attendance.edit')->where('id', '[0-9]+');
           Route::post('/', 'AttendancesController@store')
@@ -197,5 +203,26 @@ Route::middleware('auth')->group(function () {
                ->name('student_class_users.student_class_user.update')->where('id', '[0-9]+');
           Route::delete('/student_class_user/{studentClassUser}', 'StudentClassUsersController@destroy')
                ->name('student_class_users.student_class_user.destroy')->where('id', '[0-9]+');
+     });
+
+     Route::group([
+          'prefix' => 'role_has_permissions',
+     ], function () {
+          Route::get('/', 'RoleHasPermissionsController@index')
+               ->name('role_has_permissions.role_has_permission.index');
+          Route::get('/create', 'RoleHasPermissionsController@create')
+               ->name('role_has_permissions.role_has_permission.create');
+          Route::get('/show/{permission}/{role}', 'RoleHasPermissionsController@show')
+               ->name('role_has_permissions.role_has_permission.show')->where('id', '[0-9]+');
+          Route::get('/manage/{role}', 'RoleHasPermissionsController@manage')
+               ->name('role_has_permissions.role_has_permission.manage')->where('id', '[0-9]+');
+          Route::get('/{permission}/{role}/edit', 'RoleHasPermissionsController@edit')
+               ->name('role_has_permissions.role_has_permission.edit')->where('id', '[0-9]+');
+          Route::post('/', 'RoleHasPermissionsController@store')
+               ->name('role_has_permissions.role_has_permission.store');
+          Route::put('role_has_permission/{permission}/{role}', 'RoleHasPermissionsController@update')
+               ->name('role_has_permissions.role_has_permission.update')->where('id', '[0-9]+');
+          Route::delete('/role_has_permission/{permission}/{role}', 'RoleHasPermissionsController@destroy')
+               ->name('role_has_permissions.role_has_permission.destroy')->where('id', '[0-9]+');
      });
 });

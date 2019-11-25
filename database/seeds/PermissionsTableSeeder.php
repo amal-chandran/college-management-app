@@ -290,6 +290,76 @@ class PermissionsTableSeeder extends Seeder
                 'created_at' => '2019-11-15 09:40:55',
                 'updated_at' => '2019-11-15 09:40:55',
             ),
+            39 => 
+            array (
+                'id' => 40,
+                'name' => 'view-permissions',
+                'created_at' => '2019-11-24 18:19:00',
+                'updated_at' => '2019-11-24 18:19:00',
+            ),
+            40 => 
+            array (
+                'id' => 41,
+                'name' => 'create-permissions',
+                'created_at' => '2019-11-24 18:19:00',
+                'updated_at' => '2019-11-24 18:19:00',
+            ),
+            41 => 
+            array (
+                'id' => 42,
+                'name' => 'edit-permissions',
+                'created_at' => '2019-11-24 18:19:00',
+                'updated_at' => '2019-11-24 18:19:00',
+            ),
+            42 => 
+            array (
+                'id' => 43,
+                'name' => 'update-permissions',
+                'created_at' => '2019-11-24 18:19:00',
+                'updated_at' => '2019-11-24 18:19:00',
+            ),
+            43 => 
+            array (
+                'id' => 44,
+                'name' => 'delete-permissions',
+                'created_at' => '2019-11-24 18:19:00',
+                'updated_at' => '2019-11-24 18:19:00',
+            ),
+            44 => 
+            array (
+                'id' => 45,
+                'name' => 'view-roles',
+                'created_at' => '2019-11-24 18:19:07',
+                'updated_at' => '2019-11-24 18:19:07',
+            ),
+            45 => 
+            array (
+                'id' => 46,
+                'name' => 'create-roles',
+                'created_at' => '2019-11-24 18:19:07',
+                'updated_at' => '2019-11-24 18:19:07',
+            ),
+            46 => 
+            array (
+                'id' => 47,
+                'name' => 'edit-roles',
+                'created_at' => '2019-11-24 18:19:07',
+                'updated_at' => '2019-11-24 18:19:07',
+            ),
+            47 => 
+            array (
+                'id' => 48,
+                'name' => 'update-roles',
+                'created_at' => '2019-11-24 18:19:07',
+                'updated_at' => '2019-11-24 18:19:07',
+            ),
+            48 => 
+            array (
+                'id' => 49,
+                'name' => 'delete-roles',
+                'created_at' => '2019-11-24 18:19:07',
+                'updated_at' => '2019-11-24 18:19:07',
+            ),
         ));
         
         

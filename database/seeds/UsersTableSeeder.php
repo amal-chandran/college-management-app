@@ -23,7 +23,7 @@ class UsersTableSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@localhost.com',
                 'password' => '$2y$10$L3zRp/A66/e9Qs.UaQtlOu8R4faxtmVCun5XT8X1GEc0Dlmh2RHL.',
-                'remember_token' => 'ZCF9zfW83isxgAndu3WkY8ey3djQw8uUAQ4xkeMqC4LknibvZC6gbW32W8f3',
+                'remember_token' => 'cquRkKf1q82YmkXJsOguUUaEH7m0L7n2zYcUqx9sZliYOIQlS6sF1v9XzegI',
                 'created_at' => '2019-11-13 05:32:01',
                 'updated_at' => '2019-11-16 12:50:51',
             ),

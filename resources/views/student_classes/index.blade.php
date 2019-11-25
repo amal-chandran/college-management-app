@@ -55,6 +55,14 @@
                             'route' => ['student_classes.student_class.destroy', $studentClass->id],
                             'style' => 'display: inline;',
                             ]) !!}
+                            <a href="{{ route('attendances.attendance.report_class_day',[$studentClass->id]) }}"
+                                class="btn btn-sm mr-2 btn-primary" title="Show All Student Class">
+                                <span class="fas fa-clock" aria-hidden="true"></span> Day Report
+                            </a>
+                            <a href="{{ route('attendances.attendance.report_class_complete',[$studentClass->id]) }}"
+                                class="btn btn-sm mr-2 btn-primary" title="Show All Student Class">
+                                <span class="fas fa-clock" aria-hidden="true"></span> Full Report
+                            </a>
                             @can('manage-students-student-class')
 
                             <a href="{{ route('student_class_users.student_class_user.manage', $studentClass->id ) }}"
