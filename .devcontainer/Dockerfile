@@ -8,7 +8,7 @@ RUN sudo apt update -y
 RUN sudo apt install software-properties-common -y
 RUN sudo add-apt-repository ppa:ondrej/php -y
 RUN sudo apt update -y
-RUN sudo apt install -y php7.2 openssl libapache2-mod-php
+RUN sudo apt install -y php7.2 openssl
 RUN sudo apt install -y php7.2-bcmath php7.2-json php7.2-common php7.2-bcmath openssl php7.2-json php7.2-mbstring php7.2-xml php7.2-xmlrpc php7.2-curl php7.0-mysql php7.2-sqlite3 php7.2-gd php7.2-zip
 
 # Installing composer
