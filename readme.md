@@ -47,6 +47,8 @@ cd college-management-app
 
 composer install
 
+touch database.sqlite
+
 composer run Install-App
 
 php artisan serve --port 8080

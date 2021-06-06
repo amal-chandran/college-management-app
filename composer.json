@@ -18,7 +18,7 @@
     "laravel/tinker": "~1.0",
     "laravolt/avatar": "2.*",
     "lookitsatravis/listify": "1.*",
-    "orangehill/iseed": "dev-master",
+    "orangehill/iseed": "2.6.1",
     "proengsoft/laravel-jsvalidation": "^2.0",
     "rachidlaasri/laravel-installer": "4.0.2",
     "snowfire/beautymail": "dev-master",
